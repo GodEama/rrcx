@@ -160,10 +160,11 @@
 -(void)postMyBlog{
     NSDictionary * dict = @{@"microblog_content":_textView.text,@"images":_imgUrlArray.count?_imgUrlArray:@[],@"location_longitude":_poi?@(_poi.location.longitude):@"",@"location_latitude":_poi?@(_poi.location.latitude):@"",@"location_desc":_poi?[_poi.city stringByAppendingString:_poi.name]:@""};
     NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithDictionary:dict];
-    
+    //若没有图片
     if (!_imgUrlArray.count) {
         [dic removeObjectForKey:@"images"];
     }
+    //如果不显示位置
     if (!_poi) {
         [dic removeObjectForKey:@"location_longitude"];
         [dic removeObjectForKey:@"location_latitude"];
@@ -187,7 +188,7 @@
     
     NSData * data = [self resetSizeOfImageData:image maxSize:500];
     if (data.length) {
-        [CXHomeRequest getAliyunToken:@{@"type":@"microblog_image",@"num_files":@(1)} success:^(id response) {
+        [CXHomeRequest getAliyunToken:@{@"type":@"microblog_image",@"num_files":@1} success:^(id response) {
             if ([response[@"code"] intValue] == 0) {
                 [OSSLog enableLog];
                 NSString * endPoint = response[@"data"][@"endpoint"];
