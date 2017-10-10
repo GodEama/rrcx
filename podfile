@@ -1,0 +1,35 @@
+platform :ios, '8.0'
+use_frameworks!
+
+
+target 'rrcx' do
+  pod 'AliyunOSSiOS'
+  pod 'AFNetworking'
+  pod 'FMDB' 
+  pod 'MJRefresh'
+  pod 'MBProgressHUD'
+  pod 'SDWebImage'
+  pod 'MJExtension'
+  pod 'Masonry'
+  pod 'IQKeyboardManager'
+  pod 'SDAutoLayout'
+  pod 'YYModel'
+  pod 'UITableView+FDTemplateLayoutCell'
+  pod 'YYText'
+  pod 'YZDisplayViewController'
+  pod 'pop'
+  pod 'TZImagePickerController'
+  pod 'AMapSearch'
+  pod 'AMapLocation'
+  pod 'ShareSDK3',:git => ‘https://github.com/MobClub/ShareSDK-for-iOS-Spec.git'
+  pod 'MOBFoundation’
+  pod 'ShareSDK3/ShareSDKUI',:git => ‘https://github.com/MobClub/ShareSDK-for-iOS-Spec.git'
+  pod 'ShareSDK3/ShareSDKPlatforms/QQ',:git => ‘https://github.com/MobClub/ShareSDK-for-iOS-Spec.git'
+  pod 'ShareSDK3/ShareSDKPlatforms/SinaWeibo',:git => ‘https://github.com/MobClub/ShareSDK-for-iOS-Spec.git'
+  pod 'ShareSDK3/ShareSDKPlatforms/WeChat',:git => ‘https://github.com/MobClub/ShareSDK-for-iOS-Spec.git'
+  pod 'ShareSDK3/ShareSDKPlatforms/SMS',:git => ‘https://github.com/MobClub/ShareSDK-for-iOS-Spec.git'
+  pod 'ShareSDK3/ShareSDKConfigurationFile',:git => ‘https://github.com/MobClub/ShareSDK-for-iOS-Spec.git'
+  pod 'ShareSDK3/ShareSDKExtension',:git => ‘https://github.com/MobClub/ShareSDK-for-iOS-Spec.git'
+
+  pod 'YYCache'
+end

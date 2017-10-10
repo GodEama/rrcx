@@ -1,0 +1,128 @@
+PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
+  - AliyunOSSiOS (2.6.2)
+  - AMapFoundation (1.4.2)
+  - AMapLocation (2.4.0):
+    - AMapFoundation (~> 1.4)
+  - AMapSearch (5.3.0):
+    - AMapFoundation (~> 1.2)
+  - FMDB (2.7.2):
+    - FMDB/standard (= 2.7.2)
+  - FMDB/standard (2.7.2)
+  - IQKeyboardManager (4.0.13)
+  - Masonry (1.0.2)
+  - MBProgressHUD (1.0.0)
+  - MJExtension (3.0.13)
+  - MJRefresh (3.1.12)
+  - MOBFoundation (3.0.2)
+  - pop (1.0.10)
+  - SDAutoLayout (2.2.0)
+  - SDWebImage (4.1.0):
+    - SDWebImage/Core (= 4.1.0)
+  - SDWebImage/Core (4.1.0)
+  - ShareSDK3 (4.0.2):
+    - MOBFoundation
+    - ShareSDK3/ShareSDK (= 4.0.2)
+  - ShareSDK3/ShareSDK (4.0.2):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKConfigurationFile (4.0.2):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKExtension (4.0.2):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKPlatforms/QQ (4.0.2):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKPlatforms/SinaWeibo (4.0.2):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKPlatforms/SMS (4.0.2):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKPlatforms/WeChat (4.0.2):
+    - MOBFoundation
+  - ShareSDK3/ShareSDKUI (4.0.2):
+    - MOBFoundation
+  - TZImagePickerController (1.9.2)
+  - UITableView+FDTemplateLayoutCell (1.6)
+  - YYCache (1.0.4)
+  - YYModel (1.0.4)
+  - YYText (1.0.7)
+  - YZDisplayViewController (1.0.6)
+
+DEPENDENCIES:
+  - AFNetworking
+  - AliyunOSSiOS
+  - AMapLocation
+  - AMapSearch
+  - FMDB
+  - IQKeyboardManager
+  - Masonry
+  - MBProgressHUD
+  - MJExtension
+  - MJRefresh
+  - MOBFoundation
+  - pop
+  - SDAutoLayout
+  - SDWebImage
+  - ShareSDK3 (from `https://github.com/MobClub/ShareSDK-for-iOS-Spec.git`)
+  - ShareSDK3/ShareSDKConfigurationFile (from `https://github.com/MobClub/ShareSDK-for-iOS-Spec.git`)
+  - ShareSDK3/ShareSDKExtension (from `https://github.com/MobClub/ShareSDK-for-iOS-Spec.git`)
+  - ShareSDK3/ShareSDKPlatforms/QQ (from `https://github.com/MobClub/ShareSDK-for-iOS-Spec.git`)
+  - ShareSDK3/ShareSDKPlatforms/SinaWeibo (from `https://github.com/MobClub/ShareSDK-for-iOS-Spec.git`)
+  - ShareSDK3/ShareSDKPlatforms/SMS (from `https://github.com/MobClub/ShareSDK-for-iOS-Spec.git`)
+  - ShareSDK3/ShareSDKPlatforms/WeChat (from `https://github.com/MobClub/ShareSDK-for-iOS-Spec.git`)
+  - ShareSDK3/ShareSDKUI (from `https://github.com/MobClub/ShareSDK-for-iOS-Spec.git`)
+  - TZImagePickerController
+  - UITableView+FDTemplateLayoutCell
+  - YYCache
+  - YYModel
+  - YYText
+  - YZDisplayViewController
+
+EXTERNAL SOURCES:
+  ShareSDK3:
+    :git: https://github.com/MobClub/ShareSDK-for-iOS-Spec.git
+
+CHECKOUT OPTIONS:
+  ShareSDK3:
+    :commit: 9b663c77d0875c3e223238df70a88322fc044afe
+    :git: https://github.com/MobClub/ShareSDK-for-iOS-Spec.git
+
+SPEC CHECKSUMS:
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  AliyunOSSiOS: 602bc287cfa30a2a6375907e684ec66d0c45e3f1
+  AMapFoundation: 6c0471c9a6a0ad17dad46e3d800ad56ca170f82a
+  AMapLocation: 47b62b5381a66e4d0c2931b70ffde72682427896
+  AMapSearch: beb01c6b2e7be18fb4898e97162fedf144420c6f
+  FMDB: 6198a90e7b6900cfc046e6bc0ef6ebb7be9236aa
+  IQKeyboardManager: 8eab4d8111418414619d1df8e4779ce5d0f8d7e2
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  MJExtension: 5932755f451458eefa24239358817f8d291240c7
+  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  MOBFoundation: d5e27c4638d911d3c7501aa5df458955d4814359
+  pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
+  SDAutoLayout: c5509e77ae75735d9a39f7bc83dba6d3f75d49d8
+  SDWebImage: 0e435c14e402a6730315a0fb79f95e68654d55a4
+  ShareSDK3: 3a9919ec37033df5e760ac3618a4176beac3c4d6
+  TZImagePickerController: 308ff153f72969de772ffd1b7901b07c9eac68c1
+  UITableView+FDTemplateLayoutCell: 5c949b4a5059c404b442926c0e80f81d10a2d66f
+  YYCache: 8105b6638f5e849296c71f331ff83891a4942952
+  YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
+  YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
+  YZDisplayViewController: 621f737a9aa3dfbc95a901e89e5e7c4b2ea6ef79
+
+PODFILE CHECKSUM: 316ff2142bd9ebf0ada0336952d0291f30370175
+
+COCOAPODS: 1.3.1
