@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CXDescViewController">
+            <connections>
+                <outlet property="mainViewHeight" destination="BjZ-wc-0ZI" id="xD8-ax-jk1"/>
+                <outlet property="textView" destination="jrx-4W-r9n" id="vin-E5-jAS"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Drm-wJ-rsT">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DgZ-cs-xpM">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="700"/>
+                            <subviews>
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jrx-4W-r9n">
+                                    <rect key="frame" x="12" y="74" width="351" height="160"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="160" id="uqV-Ie-5Pm"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                </textView>
+                            </subviews>
+                            <color key="backgroundColor" red="0.94135373830000002" green="0.93689382080000005" blue="0.95687186719999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <constraints>
+                                <constraint firstItem="jrx-4W-r9n" firstAttribute="leading" secondItem="DgZ-cs-xpM" secondAttribute="leading" constant="12" id="8yC-FO-T9e"/>
+                                <constraint firstAttribute="height" constant="700" id="BjZ-wc-0ZI"/>
+                                <constraint firstAttribute="trailing" secondItem="jrx-4W-r9n" secondAttribute="trailing" constant="12" id="HMo-3r-iiW"/>
+                                <constraint firstItem="jrx-4W-r9n" firstAttribute="top" secondItem="DgZ-cs-xpM" secondAttribute="top" constant="74" id="WmL-eX-Vug"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="DgZ-cs-xpM" firstAttribute="leading" secondItem="Drm-wJ-rsT" secondAttribute="leading" id="0V5-UJ-06u"/>
+                        <constraint firstItem="DgZ-cs-xpM" firstAttribute="centerX" secondItem="Drm-wJ-rsT" secondAttribute="centerX" id="53N-Xz-vXl"/>
+                        <constraint firstAttribute="trailing" secondItem="DgZ-cs-xpM" secondAttribute="trailing" id="Am5-kc-vus"/>
+                        <constraint firstItem="DgZ-cs-xpM" firstAttribute="top" secondItem="Drm-wJ-rsT" secondAttribute="top" id="BKx-wt-WMT"/>
+                        <constraint firstAttribute="bottom" secondItem="DgZ-cs-xpM" secondAttribute="bottom" id="bHr-id-qy4"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Drm-wJ-rsT" secondAttribute="trailing" id="84q-Ca-tIE"/>
+                <constraint firstItem="Drm-wJ-rsT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="EQz-pl-D0z"/>
+                <constraint firstItem="Drm-wJ-rsT" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Irf-NN-9ft"/>
+                <constraint firstAttribute="bottom" secondItem="Drm-wJ-rsT" secondAttribute="bottom" id="uGm-Fb-aeO"/>
+            </constraints>
+        </view>
+    </objects>
+</document>
