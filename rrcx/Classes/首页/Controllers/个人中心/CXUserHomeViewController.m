@@ -32,9 +32,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeScrollStatus) name:@"leaveTop" object:nil];
+    [self initBarManager];
     [self getUserBasicInfo];
     self.view.backgroundColor = [UIColor whiteColor];
     self.canScroll = YES;
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
     if ([self.member_id isEqualToString:User_id]) {
         self.headerView.followBtn.hidden = YES;
@@ -54,6 +56,7 @@
             self.headerView.member_avatar = user.member_avatar;
             self.headerView.member_id = user.member_id;
             self.headerView.isAttention = [response[@"data"][@"ishits"] intValue] ==1;
+            self.title = user.member_nick;
         }
 
         
@@ -174,7 +177,7 @@
 #pragma mark UIScrollView
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGFloat bottomCellOffset = [_mainTable rectForSection:1].origin.y;
+    CGFloat bottomCellOffset = [_mainTable rectForSection:1].origin.y -kTopHeight;
     if (scrollView.contentOffset.y >= bottomCellOffset) {
         scrollView.contentOffset = CGPointMake(0, bottomCellOffset);
         if (self.canScroll) {
@@ -199,7 +202,7 @@
 
 -(CXBaseTableView *)mainTable{
     if (!_mainTable) {
-        _mainTable = [[CXBaseTableView alloc] initWithFrame:CGRectMake(0, kTopHeight, KWidth , KHeight) style:UITableViewStylePlain];
+        _mainTable = [[CXBaseTableView alloc] initWithFrame:CGRectMake(0, 0, KWidth , KHeight) style:UITableViewStylePlain];
         _mainTable.delegate = self;
         _mainTable.dataSource = self;
     }
@@ -269,13 +272,14 @@
 
 - (void)initBarManager {
     [MXNavigationBarManager managerWithController:self];
-    [MXNavigationBarManager setBarColor:[UIColor colorWithRed:0.5 green:0.5 blue:1 alpha:1]];
-    [MXNavigationBarManager setTintColor:[UIColor colorWithRed:0.15 green:0.15 blue:0.15 alpha:1]];
+    [MXNavigationBarManager setBarColor:[UIColor whiteColor]];
+    [MXNavigationBarManager setTintColor:[UIColor whiteColor]];
     [MXNavigationBarManager setStatusBarStyle:UIStatusBarStyleDefault];
-    [MXNavigationBarManager setZeroAlphaOffset:-64];
-    [MXNavigationBarManager setFullAlphaOffset:0];
-    [MXNavigationBarManager setFullAlphaTintColor:[UIColor whiteColor]];
+    [MXNavigationBarManager setZeroAlphaOffset:0];
+    [MXNavigationBarManager setFullAlphaOffset:kTopHeight];
+    [MXNavigationBarManager setFullAlphaTintColor:[UIColor blackColor]];
     [MXNavigationBarManager setFullAlphaBarStyle:UIStatusBarStyleLightContent];
+    
 }
 /*
 #pragma mark - Navigation
