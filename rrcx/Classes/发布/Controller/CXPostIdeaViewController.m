@@ -188,7 +188,7 @@
     
     NSData * data = [self resetSizeOfImageData:image maxSize:500];
     if (data.length) {
-        [CXHomeRequest getAliyunToken:@{@"type":@"microblog_image",@"num_files":@1} success:^(id response) {
+        [CXHomeRequest getAliyunToken:@{@"type":@"microblog_image",@"num_files":@(1)} success:^(id response) {
             if ([response[@"code"] intValue] == 0) {
                 [OSSLog enableLog];
                 NSString * endPoint = response[@"data"][@"endpoint"];

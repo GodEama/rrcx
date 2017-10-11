@@ -157,6 +157,7 @@
         _contentLab = [UILabel new];
         _contentLab.textColor= UIColorFromRGB(0x222222);
         _contentLab.font = [UIFont systemFontOfSize:14];
+        _contentLab.numberOfLines = 0;
     }
     return _contentLab;
 }

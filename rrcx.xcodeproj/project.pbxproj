@@ -170,6 +170,10 @@
 		9DBD489E1F7F7C31003E5130 /* CXCommentBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD489D1F7F7C31003E5130 /* CXCommentBottomView.m */; };
 		9DBD48A71F8B4608003E5130 /* CXBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD48A61F8B4608003E5130 /* CXBanner.m */; };
 		9DBD48AA1F8B4765003E5130 /* JCWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD48A91F8B4765003E5130 /* JCWebViewController.m */; };
+		9DBD48AF1F8DB2C4003E5130 /* YMReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD48AE1F8DB2C3003E5130 /* YMReportViewController.m */; };
+		9DBD48B01F8DC28B003E5130 /* YMReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9DBD48AD1F8DB2C3003E5130 /* YMReportViewController.xib */; };
+		9DBD48B41F8DECB1003E5130 /* MXNavigationBarManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD48B21F8DEBC8003E5130 /* MXNavigationBarManager.h */; };
+		9DBD48B51F8DECB1003E5130 /* MXNavigationBarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD48B31F8DEBC8003E5130 /* MXNavigationBarManager.m */; };
 		9DE43E771F5EA3840065C65B /* CXLoactionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE43E761F5EA3840065C65B /* CXLoactionsViewController.m */; };
 		9DE43E7A1F5FC9DB0065C65B /* YMEditArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE43E791F5FC9DB0065C65B /* YMEditArticleViewController.m */; };
 		9DE43E7D1F5FD2B10065C65B /* YMCoverSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE43E7C1F5FD2B10065C65B /* YMCoverSelectViewController.m */; };
@@ -545,6 +549,11 @@
 		9DBD48A61F8B4608003E5130 /* CXBanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CXBanner.m; sourceTree = "<group>"; };
 		9DBD48A81F8B4765003E5130 /* JCWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JCWebViewController.h; sourceTree = "<group>"; };
 		9DBD48A91F8B4765003E5130 /* JCWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JCWebViewController.m; sourceTree = "<group>"; };
+		9DBD48AC1F8DB2C2003E5130 /* YMReportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YMReportViewController.h; sourceTree = "<group>"; };
+		9DBD48AD1F8DB2C3003E5130 /* YMReportViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YMReportViewController.xib; sourceTree = "<group>"; };
+		9DBD48AE1F8DB2C3003E5130 /* YMReportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YMReportViewController.m; sourceTree = "<group>"; };
+		9DBD48B21F8DEBC8003E5130 /* MXNavigationBarManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXNavigationBarManager.h; sourceTree = "<group>"; };
+		9DBD48B31F8DEBC8003E5130 /* MXNavigationBarManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXNavigationBarManager.m; sourceTree = "<group>"; };
 		9DE43E751F5EA3840065C65B /* CXLoactionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXLoactionsViewController.h; sourceTree = "<group>"; };
 		9DE43E761F5EA3840065C65B /* CXLoactionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXLoactionsViewController.m; sourceTree = "<group>"; };
 		9DE43E781F5FC9DB0065C65B /* YMEditArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMEditArticleViewController.h; sourceTree = "<group>"; };
@@ -733,6 +742,9 @@
 				9DECB64E1F7B7A4B0067935A /* CXImagesArticleViewController.m */,
 				9DECB65B1F7CFF360067935A /* CXImageArticleCommentViewController.h */,
 				9DECB65C1F7CFF360067935A /* CXImageArticleCommentViewController.m */,
+				9DBD48AC1F8DB2C2003E5130 /* YMReportViewController.h */,
+				9DBD48AE1F8DB2C3003E5130 /* YMReportViewController.m */,
+				9DBD48AD1F8DB2C3003E5130 /* YMReportViewController.xib */,
 			);
 			path = "文章详情";
 			sourceTree = "<group>";
@@ -1334,6 +1346,7 @@
 		9D6AFDD61F593CE0002116B7 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				9DBD48B11F8DEBC8003E5130 /* MXNavigationBarManager */,
 				9D6AFDD71F593CE0002116B7 /* FSScrollContentViewLib */,
 			);
 			path = Lib;
@@ -1500,6 +1513,15 @@
 				9DBA62231F79DD860049F092 /* SDWaitingView.m */,
 			);
 			path = SDPhotoBrowser;
+			sourceTree = "<group>";
+		};
+		9DBD48B11F8DEBC8003E5130 /* MXNavigationBarManager */ = {
+			isa = PBXGroup;
+			children = (
+				9DBD48B21F8DEBC8003E5130 /* MXNavigationBarManager.h */,
+				9DBD48B31F8DEBC8003E5130 /* MXNavigationBarManager.m */,
+			);
+			path = MXNavigationBarManager;
 			sourceTree = "<group>";
 		};
 		9DE43E7E1F5FD3520065C65B /* ALiImageReshape */ = {
@@ -1742,6 +1764,7 @@
 				9D6AFE031F5D45A3002116B7 /* CXMineHeaderView.xib in Resources */,
 				9D05C9701F666C0E005EA65F /* CXSetVacationViewController.xib in Resources */,
 				9DBA62171F78EAA80049F092 /* CXDescViewController.xib in Resources */,
+				9DBD48B01F8DC28B003E5130 /* YMReportViewController.xib in Resources */,
 				9D34615A1F55591E00D7E829 /* Assets.xcassets in Resources */,
 				9D2A6DC41F57ADA400DE163C /* CXForgetPwViewController.xib in Resources */,
 				9DBA62121F78E22A0049F092 /* CXTextViewController.xib in Resources */,
@@ -1864,6 +1887,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DBD48B41F8DECB1003E5130 /* MXNavigationBarManager.h in Sources */,
+				9DBD48B51F8DECB1003E5130 /* MXNavigationBarManager.m in Sources */,
 				9DBA62271F79DDA30049F092 /* SDBrowserImageView.h in Sources */,
 				9DBA62281F79DDA30049F092 /* SDBrowserImageView.m in Sources */,
 				9DECB6441F7A45800067935A /* CXMyVisitorsViewController.m in Sources */,
@@ -1998,6 +2023,7 @@
 				9DE43EC61F5FF3A70065C65B /* MeterLavel.m in Sources */,
 				9D6AFDDE1F593CE0002116B7 /* FSSegmentTitleView.m in Sources */,
 				9D0076E41F721B530023F5AD /* CXSelectImagesCoverViewController.m in Sources */,
+				9DBD48AF1F8DB2C4003E5130 /* YMReportViewController.m in Sources */,
 				9D05C94F1F6639E3005EA65F /* SelectView.m in Sources */,
 				9D0076C31F6F69DD0023F5AD /* YYFPSLabel.m in Sources */,
 				9D6AFE011F5D457D002116B7 /* CXMineHeaderView.m in Sources */,

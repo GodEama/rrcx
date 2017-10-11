@@ -12,6 +12,7 @@
 #import "CXUserHomeViewController.h"
 #import "SelectView.h"
 #import "CXBlogDetailViewController.h"
+#import "YMReportViewController.h"
 @interface CXSingleTableViewController_1 ()<UITableViewDelegate,UITableViewDataSource,SelectViewDelegate>
 @property (nonatomic, assign) BOOL fingerIsTouch;
 @property (strong, nonatomic) NSMutableArray *data;
@@ -26,20 +27,11 @@ static NSString *const discoverCell=@"discoverCell";
     self.view.backgroundColor = [UIColor whiteColor];
     
     _data = [NSMutableArray new];
-//    [_data addObjectsFromArray:@[@{@"content":@"九寨，让我再看一眼你的美12,九寨，让我再看一眼你的美12,九寨，让我再看一眼你的美12",@"time":@"08月12日 09:42",@"imageArr":@[@"图片"],@"avatar":@"组-19",@"name":@"微视觉",@"lookCount":@"1204",@"commentCount":@"23",@"zanCount":@"48",@"isZan":@"1"},
-//                                 @{@"content":@"九寨，让我再看一眼你的美",@"time":@"08月12日 09:42",@"imageArr":@[@"组-1",@"组-1-拷贝",@"组-1",@"组-1-拷贝",@"组-1",@"组-1-拷贝",@"组-1",@"组-1-拷贝",@"组-1"],@"avatar":@"组-19",@"name":@"微视觉",@"lookCount":@"1200",@"commentCount":@"23",@"zanCount":@"48",@"isZan":@"1"},
-//                                 @{@"content":@"九寨，让我再看一眼你的美12,九寨，让我再看一眼你的美12,九寨，让我再看一眼你的美12",@"time":@"08月12日 09:42",@"imageArr":@[@"图片"],@"avatar":@"组-19",@"name":@"微视觉",@"lookCount":@"1204",@"commentCount":@"23",@"zanCount":@"48",@"isZan":@"1"},
-//                                 @{@"content":@"九寨，让我再看一眼你的美12,九寨，让我再看一眼你的美12,九寨，让我再看一眼你的美12",@"time":@"08月12日 09:42",@"imageArr":@[@"图片"],@"avatar":@"组-19",@"name":@"微视觉",@"lookCount":@"1204",@"commentCount":@"23",@"zanCount":@"48",@"isZan":@"1"}]];
+
     _currentPage = 1;
     [self loadCircleListDatas];
     [self.view addSubview:self.tableView];
 }
-
-
-
-
-
-
 
 
 -(void)loadCircleListDatas{
@@ -116,15 +108,42 @@ static NSString *const discoverCell=@"discoverCell";
     };
     cell.moreActionBlock = ^{
         weakSelf.blog = model;
-
-        SelectView * selectView = [[SelectView alloc] initWithTitle:@[@"收藏",@"举报"] delegate:self];
-        selectView.myTag = 101;
-        [selectView showInWindow];
+        if ([model.member_id isEqualToString:User_id]) {
+            //是自己的动态
+            SelectView * selectView = [[SelectView alloc] initWithTitle:@[@"收藏",@"删除"] delegate:self];
+            selectView.myTag = 102;
+            selectView.tag = indexPath.row;
+            [selectView showInWindow];
+        }
+        else{
+            //别人的动态
+            SelectView * selectView = [[SelectView alloc] initWithTitle:@[@"收藏",@"举报"] delegate:self];
+            selectView.myTag = 101;
+            selectView.tag = indexPath.row;
+            [selectView showInWindow];
+        }
+        
     };
+    __weak CXDiscoverTableViewCell * weakCell = cell;
     cell.zanBtnClickBlock = ^{
-        [CXHomeRequest zanArticle:@{@"id":model.ID,@"type":@"2",@"action":@"up"} success:^(id response) {
+        
+        [CXHomeRequest zanArticle:@{@"id":model.ID,@"type":@"2",@"action":[model.islike integerValue] == 0?@"up":@"down"} success:^(id response) {
             if ([response[@"code"] intValue] == 0) {
-                
+                if ([model.islike integerValue] == 0) {
+                    //点赞
+                    model.islike = @"1";
+                    model.num_up = model.num_up + 1;
+                   
+                }
+                else{
+                    model.islike = @"0";
+                    model.num_up = (model.num_up - 1)>=0?model.num_up - 1:0;
+                }
+                weakCell.model = model;
+                [weakSelf.data replaceObjectAtIndex:indexPath.row withObject:model];
+            }
+            else{
+                [Message showMiddleHint:response[@"message"]];
             }
             
         } failure:^(NSError *error) {
@@ -144,25 +163,61 @@ static NSString *const discoverCell=@"discoverCell";
 
 
 -(void)selectView:(SelectView *)selectView index:(NSInteger)index{
-    if (selectView.myTag == 101) {
-        if (index == 0) {
-            //收藏
-            [CXHomeRequest collectArticleWithParameters:@{@"type":@2,@"id":_blog.ID} success:^(id response) {
-                if ([response[@"code"] intValue] == 0) {
-                    [Message showMiddleHint:@"收藏成功"];
-                }
-                else{
-                    [Message showMiddleHint:response[@"message"]];
-                }
-            } failure:^(NSError *error) {
-                
-            }];
-        }else{
-            //举报
+    if (index == 0) {
+        //收藏
+        [CXHomeRequest collectArticleWithParameters:@{@"type":@2,@"id":_blog.ID} success:^(id response) {
+            if ([response[@"code"] intValue] == 0) {
+                [Message showMiddleHint:@"收藏成功"];
+            }
+            else{
+                [Message showMiddleHint:response[@"message"]];
+            }
+        } failure:^(NSError *error) {
             
+        }];
+    }
+    if (index == 1) {
         
+        if (selectView.myTag == 101) {
+            //举报
+            YMReportViewController * reportVC = [[YMReportViewController alloc] init];
+            reportVC.articleId = self.blog.ID;
+            reportVC.reportType = reportTypeBlog;
+            [self.navigationController pushViewController:reportVC animated:YES];
+            
+        }
+        else if (selectView.myTag == 102){
+            //删除
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:nil message:@"删除此动态？" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action){
+                [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+            }];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                [CXHomeRequest deleteArticleWithParameters:@{@"article_id":self.blog.ID} success:^(id response) {
+                    if ([response[@"code"] integerValue] == 0) {
+                        [self.data removeObject:self.blog];
+                        [self.tableView beginUpdates];
+                        [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:selectView.tag inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+                        [self.tableView endUpdates];
+                        dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3/*延迟执行时间*/ * NSEC_PER_SEC));
+                        
+                        dispatch_after(delayTime, dispatch_get_main_queue(), ^{
+                            [self.tableView reloadData];
+                        });
+                    }
+                    else{
+                        [Message showMiddleHint:response[@"message"]];
+                    }
+                } failure:^(NSError *error) {
+                    
+                }];
+            }];
+            [alert addAction:cancelAction];
+            [alert addAction:okAction];
+            [self presentViewController:alert animated:YES completion:nil];
         }
     }
+   
 
 }
 

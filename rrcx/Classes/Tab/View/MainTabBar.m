@@ -36,7 +36,7 @@
 - (void)SetupWriteButton{
     UIView * view = [[UIView alloc] init];
     view.bounds = CGRectMake(0, 0, 44, 44);
-    UIImageView * imgview = [[UIImageView alloc] initWithFrame:CGRectMake(6, 2, 25, 25)];
+    UIImageView * imgview = [[UIImageView alloc] initWithFrame:CGRectMake(9.5, 2, 25, 25)];
     imgview.image = [UIImage imageNamed:@"release"];
     [view addSubview:imgview];
     UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(imgview.frame)+2, 44, 44-CGRectGetMaxY(imgview.frame))];

@@ -534,6 +534,8 @@ static NSString *const imageCell=@"imageCell";
     //NSString * ex = [imagePath pathExtension];
     UIImage * imag = [UIImage imageWithContentsOfFile:imagePath];
     NSData * data = [self resetSizeOfImageData:imag maxSize:500];
+    NSString * ext = [[fileName componentsSeparatedByString:@"."] lastObject];
+
     if (data.length) {
         [CXHomeRequest getAliyunToken:@{@"type":@"article_image",@"num_files":@(1)} success:^(id response) {
             if ([response[@"code"] intValue] == 0) {
@@ -545,7 +547,7 @@ static NSString *const imageCell=@"imageCell";
                 conf.timeoutIntervalForRequest = 30;
                 conf.timeoutIntervalForResource = 24 * 60 * 60;
                 OSSClient * client = [[OSSClient alloc] initWithEndpoint:endPoint credentialProvider:credential clientConfiguration:conf];
-                [self uploadImageAsyncWithData:data andResponse:response andClient:client andIndex:index andImageType:@"article_image" isCover:[imagePath isEqualToString:_coverImageUrl] isPost:isPost];
+                [self uploadImageAsyncWithData:data andResponse:response andClient:client andIndex:index andImageType:@"article_image" isCover:[imagePath isEqualToString:_coverImageUrl] isPost:isPost andExt:ext];
             }
             
         } failure:^(NSError *error) {
@@ -560,7 +562,7 @@ static NSString *const imageCell=@"imageCell";
     
 }
 // 异步上传
-- (void)uploadImageAsyncWithData:(NSData *)uploadData andResponse:(NSDictionary *)response andClient:(OSSClient*)client andIndex:(NSInteger)index andImageType:(NSString*)imageType isCover:(BOOL)isCover isPost:(BOOL)isPost{
+- (void)uploadImageAsyncWithData:(NSData *)uploadData andResponse:(NSDictionary *)response andClient:(OSSClient*)client andIndex:(NSInteger)index andImageType:(NSString*)imageType isCover:(BOOL)isCover isPost:(BOOL)isPost andExt:(NSString *)ext{
     
     //上传请求类
     OSSPutObjectRequest * request = [OSSPutObjectRequest new];
@@ -579,7 +581,7 @@ static NSString *const imageCell=@"imageCell";
         if (!task.error) {
             
             NSString * imageUrl = @"";
-            imageUrl = [NSString stringWithFormat:@"%@/%@%@.png",response[@"data"][@"previewHost"],response[@"data"][@"uploadFile"][@"savePath"],response[@"data"][@"uploadFile"][@"saveFileNames"][0]];
+            imageUrl = [NSString stringWithFormat:@"%@/%@%@.%@",response[@"data"][@"previewHost"],response[@"data"][@"uploadFile"][@"savePath"],response[@"data"][@"uploadFile"][@"saveFileNames"][0],ext];
             if ([imageType isEqualToString:@"article_image"]) {
                 CXImageItem * item = _dataArray[index];
                 NSDictionary *dic = @{@"img":imageUrl,@"text":item.desc};

@@ -13,5 +13,7 @@
 @property (nonatomic, copy)   void(^avatarClickBlock)(void);
 @property (nonatomic, copy)   void(^moreActionBlock)(void);
 @property (nonatomic, copy)   void(^zanBtnClickBlock)(void);
+@property (nonatomic,strong) YHButton* zanBtn;
+
 -(void)setModel:(CXFind *)model;
 @end

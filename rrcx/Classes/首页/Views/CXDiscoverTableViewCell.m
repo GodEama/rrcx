@@ -17,7 +17,6 @@
 @property (nonatomic,strong) UIView  * lineView;
 @property (nonatomic,strong) YHButton* watchBtn;
 @property (nonatomic,strong) YHButton* commentBtn;
-@property (nonatomic,strong) YHButton* zanBtn;
 @property (nonatomic,strong) UIButton* downBtn;
 @property (nonatomic,strong) UIView * bottomSeparatorView;
 @property (nonatomic,strong) UIButton * avatarBtn;
@@ -44,9 +43,9 @@
     _nameLabel.text = model.member_nick;
     _timeLabel.text = model.add_time;
     _contenLabel.text = model.microblog_content;
-    [self.watchBtn setTitle:model.num_look forState:UIControlStateNormal];
-    [self.commentBtn setTitle:model.num_comment forState:UIControlStateNormal];
-    [self.zanBtn setTitle:model.num_up forState:UIControlStateNormal];
+    [self.watchBtn setTitle:[NSString stringWithFormat:@"%ld",model.num_look] forState:UIControlStateNormal];
+    [self.commentBtn setTitle:[NSString stringWithFormat:@"%ld",model.num_comment] forState:UIControlStateNormal];
+    [self.zanBtn setTitle:[NSString stringWithFormat:@"%ld",model.num_up] forState:UIControlStateNormal];
     [self.zanBtn setImage:[UIImage imageNamed:[model.islike integerValue] == 0?@"fabulous":@"zan"] forState:UIControlStateNormal];
     if (model.images.count) {
         [self createImgCell:model.images];

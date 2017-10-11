@@ -115,6 +115,9 @@
             [[NSUserDefaults standardUserDefaults] setObject:response[@"data"][@"member_id"] forKey:@"USERID"];
             [self.navigationController dismissViewControllerAnimated:YES completion:nil];
         }
+        else{
+            [Message showMiddleHint:response[@"message"]];
+        }
     } failure:^(NSError *error) {
         DLog(@">>>>%@",error);
     }];

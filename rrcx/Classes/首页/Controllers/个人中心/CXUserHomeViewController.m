@@ -16,6 +16,7 @@
 #import "FSBottomTableViewCell.h"
 #import "CXUser.h"
 #import "CXPeopleListViewController.h"
+#import "MXNavigationBarManager.h"
 @interface CXUserHomeViewController ()<UITableViewDelegate,UITableViewDataSource,FSSegmentTitleViewDelegate,FSPageContentViewDelegate>
 @property (nonatomic, strong) CXUserHomeHeaderView * headerView;
 @property(nonatomic,strong) CXFullScreenLoadingView *fullLoadingView;
@@ -186,6 +187,8 @@
         }
     }
     self.mainTable.showsVerticalScrollIndicator = _canScroll?YES:NO;
+    [MXNavigationBarManager changeAlphaWithCurrentOffset:scrollView.contentOffset.y];
+
 }
 #pragma mark notify
 - (void)changeScrollStatus//改变主视图的状态
@@ -196,7 +199,7 @@
 
 -(CXBaseTableView *)mainTable{
     if (!_mainTable) {
-        _mainTable = [[CXBaseTableView alloc] initWithFrame:CGRectMake(0, 0, KWidth , KHeight) style:UITableViewStylePlain];
+        _mainTable = [[CXBaseTableView alloc] initWithFrame:CGRectMake(0, kTopHeight, KWidth , KHeight) style:UITableViewStylePlain];
         _mainTable.delegate = self;
         _mainTable.dataSource = self;
     }
@@ -253,7 +256,26 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = YES;
+    self.navigationController.navigationBarHidden = NO ;
+    
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.mainTable.delegate = nil;
+
+    [MXNavigationBarManager reStoreToSystemNavigationBar];
+
+}
+
+- (void)initBarManager {
+    [MXNavigationBarManager managerWithController:self];
+    [MXNavigationBarManager setBarColor:[UIColor colorWithRed:0.5 green:0.5 blue:1 alpha:1]];
+    [MXNavigationBarManager setTintColor:[UIColor colorWithRed:0.15 green:0.15 blue:0.15 alpha:1]];
+    [MXNavigationBarManager setStatusBarStyle:UIStatusBarStyleDefault];
+    [MXNavigationBarManager setZeroAlphaOffset:-64];
+    [MXNavigationBarManager setFullAlphaOffset:0];
+    [MXNavigationBarManager setFullAlphaTintColor:[UIColor whiteColor]];
+    [MXNavigationBarManager setFullAlphaBarStyle:UIStatusBarStyleLightContent];
 }
 /*
 #pragma mark - Navigation

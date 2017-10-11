@@ -152,7 +152,7 @@
     [CXHomeRequest registUser:@{@"phone":_phoneTF.text,@"sms_code":_phoneCodeTF.text} success:^(id response) {
         if ([response[@"code"] intValue] == 0) {
             
-            [[NSUserDefaults standardUserDefaults] setObject:response[@"data"][@"Auth-Token"] forKey:@"USERTOKEN"];
+            [[NSUserDefaults standardUserDefaults] setObject:response[@"data"][@"auth_token"] forKey:@"USERTOKEN"];
             CXRegisteCompleteViewController * registVC = [[CXRegisteCompleteViewController alloc] init];
             [self.navigationController pushViewController:registVC animated:YES];
         }

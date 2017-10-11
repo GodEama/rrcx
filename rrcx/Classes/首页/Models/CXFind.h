@@ -18,18 +18,18 @@
 @property (nonatomic,copy) NSString *title;
 @property (nonatomic,copy) NSString *member_nick;
 @property (nonatomic,copy) NSArray *cover_images;
-@property (nonatomic,copy) NSString *num_look;
-@property (nonatomic,copy) NSString *num_comment;
+@property (nonatomic,assign) NSInteger num_look;
+@property (nonatomic,assign) NSInteger num_comment;
 @property (nonatomic,copy) NSArray *images;
 @property (nonatomic,copy) NSString *hits;
 @property (nonatomic,copy) NSString *add_time;
 @property (nonatomic,copy) NSString *member_id;
-@property (nonatomic,copy) NSString *num_share;
+@property (nonatomic,assign) NSInteger num_share;
 @property (nonatomic,copy) NSString *microblog_content;
 @property (nonatomic,copy) NSString *iscollect;
 @property (nonatomic,copy) NSString *cat_id;
 
-@property (nonatomic,copy) NSString *num_up;
+@property (nonatomic,assign) NSInteger num_up;
 @property (nonatomic,copy) NSString *islike;
 
 

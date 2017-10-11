@@ -981,6 +981,8 @@ typedef NS_ENUM(NSInteger,photoType){
     NSString * imagePath = [DOCUMENTDIRECTORY stringByAppendingPathComponent:[NSString stringWithFormat:@"MyImage/%@",fileName]];
     //NSString * ex = [imagePath pathExtension];
     UIImage * imag = [UIImage imageWithContentsOfFile:imagePath];
+    NSString * ext = [[fileName componentsSeparatedByString:@"."] lastObject];
+
     NSData * data = [self resetSizeOfImageData:imag maxSize:500];
     if (data.length) {
         [CXHomeRequest getAliyunToken:@{@"type":@"article_image",@"num_files":@(1)} success:^(id response) {
@@ -993,7 +995,7 @@ typedef NS_ENUM(NSInteger,photoType){
                 conf.timeoutIntervalForRequest = 30;
                 conf.timeoutIntervalForResource = 24 * 60 * 60;
                 OSSClient * client = [[OSSClient alloc] initWithEndpoint:endPoint credentialProvider:credential clientConfiguration:conf];
-                [self uploadImageAsyncWithData:data andResponse:response andClient:client andIndex:index andImageType:@"article_image"];
+                [self uploadImageAsyncWithData:data andResponse:response andClient:client andIndex:index andImageType:@"article_image" andExt:ext];
             }
             
         } failure:^(NSError *error) {
@@ -1008,12 +1010,13 @@ typedef NS_ENUM(NSInteger,photoType){
     
 }
 // 异步上传
-- (void)uploadImageAsyncWithData:(NSData *)uploadData andResponse:(NSDictionary *)response andClient:(OSSClient*)client andIndex:(NSInteger)index andImageType:(NSString*)imageType{
+- (void)uploadImageAsyncWithData:(NSData *)uploadData andResponse:(NSDictionary *)response andClient:(OSSClient*)client andIndex:(NSInteger)index andImageType:(NSString*)imageType andExt:(NSString *)ext{
     
     //上传请求类
     OSSPutObjectRequest * request = [OSSPutObjectRequest new];
     //文件夹名 后台给出
     request.bucketName = response[@"data"][@"bucket"];
+
     //objectKey为文件名 一般自己拼接
     request.objectKey = [NSString stringWithFormat:@"%@%@.png",response[@"data"][@"uploadFile"][@"savePath"],response[@"data"][@"uploadFile"][@"saveFileNames"][0]];
     
@@ -1158,6 +1161,7 @@ typedef NS_ENUM(NSInteger,photoType){
     //NSString * ex = [imagePath pathExtension];
     UIImage * imag = [UIImage imageWithContentsOfFile:imagePath];
     NSData * data = [self resetSizeOfImageData:imag maxSize:500];
+    NSString * ext = [[fileName componentsSeparatedByString:@"."] lastObject];
 
     if (data.length) {
         [CXHomeRequest getAliyunToken:@{@"type":@"article_image",@"num_files":@(1)} success:^(id response) {
@@ -1170,7 +1174,7 @@ typedef NS_ENUM(NSInteger,photoType){
                 conf.timeoutIntervalForRequest = 30;
                 conf.timeoutIntervalForResource = 24 * 60 * 60;
                 OSSClient * client = [[OSSClient alloc] initWithEndpoint:endPoint credentialProvider:credential clientConfiguration:conf];
-                [self uploadImageAsyncWithData:data andResponse:response andClient:client andIndex:index andImageType:@"coverImage"];
+                [self uploadImageAsyncWithData:data andResponse:response andClient:client andIndex:index andImageType:@"coverImage" andExt:ext];
             }
             
         } failure:^(NSError *error) {
