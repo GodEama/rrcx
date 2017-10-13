@@ -150,7 +150,7 @@
 -(void)setModel:(CXArticleDetailModel *)model{
     _model = model;
     self.titleLab.text = model.title;
-    [self.avatarImgView sd_setImageWithURL:[NSURL URLWithString:model.authorInfo.member_avatar] placeholderImage:nil];
+    [self.avatarImgView sd_setImageWithURL:[NSURL URLWithString:model.authorInfo.member_avatar] placeholderImage:[UIImage imageNamed:@"placeholder_avatar"]];
     
     self.nicknameLabel.text = model.authorInfo.member_nick;
     self.timeLabel.text = model.add_time;

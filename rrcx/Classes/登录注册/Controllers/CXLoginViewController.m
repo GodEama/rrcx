@@ -12,6 +12,7 @@
 #import "CXForgetPwViewController.h"
 #import "CXHomeArticleListViewController.h"
 #import "CXArticleHomeViewController.h"
+#import "JPUSHService.h"
 
 
 @interface CXLoginViewController ()
@@ -113,6 +114,9 @@
         if ([response[@"code"] intValue] == 0) {
             [[NSUserDefaults standardUserDefaults] setObject:response[@"data"][@"auth_token"] forKey:@"USERTOKEN"];
             [[NSUserDefaults standardUserDefaults] setObject:response[@"data"][@"member_id"] forKey:@"USERID"];
+            [JPUSHService setAlias:[NSString stringWithFormat:@"trrcx%@",response[@"data"][@"member_id"]] completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+                DLog(@"resCode  是 %ld 别名：%@ 序列号：%ld",iResCode,iAlias,seq);
+            } seq:100];
             [self.navigationController dismissViewControllerAnimated:YES completion:nil];
         }
         else{

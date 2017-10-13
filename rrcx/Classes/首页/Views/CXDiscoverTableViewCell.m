@@ -39,7 +39,7 @@
 }
 -(void)setModel:(CXFind *)model{
     _model = model;
-    [_avatarImgView sd_setImageWithURL:[NSURL URLWithString:model.member_avatar] placeholderImage:[UIImage imageNamed:@"avatar"]];
+    [_avatarImgView sd_setImageWithURL:[NSURL URLWithString:model.member_avatar] placeholderImage:[UIImage imageNamed:@"placeholder_avatar"]];
     _nameLabel.text = model.member_nick;
     _timeLabel.text = model.add_time;
     _contenLabel.text = model.microblog_content;
@@ -47,6 +47,7 @@
     [self.commentBtn setTitle:[NSString stringWithFormat:@"%ld",model.num_comment] forState:UIControlStateNormal];
     [self.zanBtn setTitle:[NSString stringWithFormat:@"%ld",model.num_up] forState:UIControlStateNormal];
     [self.zanBtn setImage:[UIImage imageNamed:[model.islike integerValue] == 0?@"fabulous":@"zan"] forState:UIControlStateNormal];
+    [self removeOldView];
     if (model.images.count) {
         [self createImgCell:model.images];
 
@@ -69,7 +70,7 @@
 
 -(void)createImgCell:(NSArray*)imgArrs{
     
-    [self removeOldView];
+    
     
     UIImageView *lastCell=nil;
     NSInteger space=5;//间距
@@ -85,10 +86,11 @@
         UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imgViewClick:)];
         [imgcell addGestureRecognizer:tapGesture];
         //        [imgcell sd_setImageWithURL:[NSURL URLWithString:model]];
-        [imgcell sd_setImageWithURL:[NSURL URLWithString:model] placeholderImage:nil];
+        
         [self.conView addSubview:imgcell];
         if(imgArrs.count==1)
         {
+            [imgcell sd_setImageWithURL:[NSURL URLWithString:model] placeholderImage:[UIImage imageNamed:@"placeholder_articleCover"]];
             [imgcell mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(CGSizeMake((KWidth-35), (KWidth-35)/71*40));
                 NSInteger width= i==1? (KWidth-35)/2+space:0;
@@ -98,6 +100,7 @@
         }
         else if (imgArrs.count == 2)
         {
+            [imgcell sd_setImageWithURL:[NSURL URLWithString:model] placeholderImage:[UIImage imageNamed:@"placeholder_blog"]];
             [imgcell mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(CGSizeMake((KWidth-35)/2, (KWidth-35)/2));
                 NSInteger width= i==1? (KWidth-35)/2+space:0;
@@ -106,6 +109,8 @@
             }];
         }
         else{
+            [imgcell sd_setImageWithURL:[NSURL URLWithString:model] placeholderImage:[UIImage imageNamed:@"placeholder_blog"]];
+
             [imgcell mas_makeConstraints:^(MASConstraintMaker *make) {
                 
                 // 计算每个cell的上 左间距

@@ -12,7 +12,7 @@
 #import "CXChangePhoneViewController.h"
 #import "CXForgetPwViewController.h"
 #import "CXSetVacationViewController.h"
-
+#import "JPushService.h"
 @interface CXSettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView * settingTable;
 @property (nonatomic, copy) NSArray * dataArray;
@@ -207,6 +207,9 @@
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self.navigationController popViewControllerAnimated:YES];
+        [JPUSHService deleteAlias:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+            DLog(@"resCode  是 %ld 别名：%@ 序列号：%ld",iResCode,iAlias,seq);
+        } seq:101];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"USERTOKEN"];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"USERID"];
         

@@ -9,6 +9,7 @@
 #import "CXPeopleListViewController.h"
 #import "CXFansTableViewCell.h"
 #import "UITableView+FDTemplateLayoutCell.h"
+#import "CXUserHomeViewController.h"
 @interface CXPeopleListViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView * peopleList;
 @property (nonatomic,strong) NSMutableArray * dataArray;
@@ -131,10 +132,17 @@
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    CXListPeople * model = _dataArray[indexPath.row];
+    CXUserHomeViewController * userHomeVC = [[CXUserHomeViewController alloc] init];
+    userHomeVC.member_id = model.member_id;
+    [self.navigationController pushViewController:userHomeVC animated:YES];
+}
+
 
 -(UITableView *)peopleList{
     if (!_peopleList) {
-        _peopleList = [[UITableView alloc] initWithFrame:CGRectMake(0, kTopHeight, KWidth, KHeight) style:UITableViewStyleGrouped];
+        _peopleList = [[UITableView alloc] initWithFrame:CGRectMake(0, kTopHeight, KWidth, KHeight - kTopHeight) style:UITableViewStyleGrouped];
 
         
         _peopleList.delegate = self;

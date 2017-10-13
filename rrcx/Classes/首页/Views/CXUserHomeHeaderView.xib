@@ -170,12 +170,13 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eR0-pi-Ch7">
-                            <rect key="frame" x="275" y="10" width="80" height="30"/>
+                            <rect key="frame" x="295" y="11" width="60" height="28"/>
                             <color key="backgroundColor" red="0.89450180530000001" green="0.55206966400000002" blue="0.35689416530000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="80" id="6Le-fa-W5l"/>
-                                <constraint firstAttribute="height" constant="30" id="QYt-xA-Sl1"/>
+                                <constraint firstAttribute="width" constant="60" id="6Le-fa-W5l"/>
+                                <constraint firstAttribute="height" constant="28" id="QYt-xA-Sl1"/>
                             </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <state key="normal" title="关注"/>
                             <connections>
                                 <action selector="followBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="2ud-yC-AED"/>

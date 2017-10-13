@@ -75,7 +75,13 @@
             
 
         }
-        
+        else{
+            self.headerView.member_nick = @"点击登录";
+            self.headerView.member_follows = @"0";
+            self.headerView.member_focus = @"0";
+            self.headerView.member_visitor = @"0";
+            self.headerView.member_avatar = @"0";
+        }
         
     } failure:^(NSError *error) {
         
@@ -143,7 +149,6 @@
         if (indexPath.row == 0||indexPath.row == 1) {
             CXUserHomeViewController * userhomeVC = [[CXUserHomeViewController alloc] init];
             userhomeVC.member_id = _user.member_id;
-//            userhomeVC.list
             [self.navigationController pushViewController:userhomeVC animated:YES];
         }
         else if (indexPath.row == 2){

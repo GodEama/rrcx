@@ -258,6 +258,11 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.mainTable.delegate = self;
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.mainTable.delegate = nil;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

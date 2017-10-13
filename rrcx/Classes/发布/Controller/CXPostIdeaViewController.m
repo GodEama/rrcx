@@ -158,7 +158,8 @@
     
 }
 -(void)postMyBlog{
-    NSDictionary * dict = @{@"microblog_content":_textView.text,@"images":_imgUrlArray.count?_imgUrlArray:@[],@"location_longitude":_poi?@(_poi.location.longitude):@"",@"location_latitude":_poi?@(_poi.location.latitude):@"",@"location_desc":_poi?[_poi.city stringByAppendingString:_poi.name]:@""};
+    NSString * con = _textView.text;
+    NSDictionary * dict = @{@"microblog_content":con,@"images":_imgUrlArray.count?_imgUrlArray:@[],@"location_longitude":_poi?@(_poi.location.longitude):@"",@"location_latitude":_poi?@(_poi.location.latitude):@"",@"location_desc":_poi?[_poi.city stringByAppendingString:_poi.name]:@""};
     NSMutableDictionary * dic = [NSMutableDictionary dictionaryWithDictionary:dict];
     //若没有图片
     if (!_imgUrlArray.count) {
@@ -182,7 +183,33 @@
         [Message showMessageWithConfirm:NO title:@"上传失败"];
     }];
 }
-
+-(void)uploadOneImageWithData:(NSData *)data{
+    
+    if (data.length) {
+        [CXHomeRequest getAliyunToken:@{@"type":@"microblog_image",@"num_files":@(1)} success:^(id response) {
+            if ([response[@"code"] intValue] == 0) {
+                [OSSLog enableLog];
+                NSString * endPoint = response[@"data"][@"endpoint"];
+                id<OSSCredentialProvider> credential = [[OSSStsTokenCredentialProvider alloc] initWithAccessKeyId:response[@"data"][@"Credentials"][@"AccessKeyId"] secretKeyId:response[@"data"][@"Credentials"][@"AccessKeySecret"] securityToken:response[@"data"][@"Credentials"][@"SecurityToken"]];
+                OSSClientConfiguration * conf = [OSSClientConfiguration new];
+                conf.maxRetryCount = 3;
+                conf.timeoutIntervalForRequest = 30;
+                conf.timeoutIntervalForResource = 24 * 60 * 60;
+                OSSClient * client = [[OSSClient alloc] initWithEndpoint:endPoint credentialProvider:credential clientConfiguration:conf];
+                [self uploadImageAsyncWithData:data andResponse:response andClient:client andImageType:@"microblog_image"];
+            }
+            
+        } failure:^(NSError *error) {
+            [_hud hideAnimated:YES];
+            [Message showMiddleHint:@"发布失败"];
+        }];
+    }
+    else{
+        [_hud hideAnimated:YES];
+        [Message showMiddleHint:@"发布失败"];
+    }
+    
+}
 #pragma mark - 单张上传图片根据Image路径
 -(void)uploadOneImageWithImage:(UIImage *)image{
     
@@ -445,7 +472,6 @@
         cell.deleteBtn.hidden = NO;
     }
     
-    cell.gifLable.hidden = YES;
     
     cell.deleteBtn.tag = indexPath.row;
     [cell.deleteBtn addTarget:self action:@selector(deleteBtnClik:) forControlEvents:UIControlEventTouchUpInside];
@@ -554,7 +580,7 @@
     
     // 3. Set allow picking video & photo & originalPhoto or not
     // 3. 设置是否可以选择视频/图片/原图
-    imagePickerVc.allowPickingVideo = YES;
+    imagePickerVc.allowPickingVideo = NO;
     imagePickerVc.allowPickingImage = YES;
     imagePickerVc.allowPickingOriginalPhoto = YES;
     imagePickerVc.allowPickingGif = YES;
@@ -636,7 +662,6 @@
         [[TZImageManager manager] savePhotoWithImage:image completion:^(NSError *error){
             if (error) {
                 [tzImagePickerVc hideProgressHUD];
-                NSLog(@"图片保存失败 %@",error);
             } else {
                 [[TZImageManager manager] getCameraRollAlbum:NO allowPickingImage:YES completion:^(TZAlbumModel *model) {
                     [[TZImageManager manager] getAssetsFromFetchResult:model.result allowPickingVideo:NO allowPickingImage:YES completion:^(NSArray<TZAssetModel *> *models) {
@@ -900,6 +925,59 @@
     DLog(@">>>>>>>>%@",response.pois);
     
 }
+- (NSMutableArray *)selectedAlbumPhotosIncludingGifWithPHAssets:(NSArray*)assets {  
+    
+    CGSize targetSize = CGSizeMake(MAXFLOAT,MAXFLOAT);
+    
+    PHImageRequestOptions *options = [PHImageRequestOptions new];  
+    options.resizeMode = PHImageRequestOptionsResizeModeFast;  
+    options.synchronous = YES;  
+    NSMutableArray * imgArr = [NSMutableArray new];
+    PHCachingImageManager *imageManager = [[PHCachingImageManager alloc] init];  
+    for (PHAsset *asset in assets) {  
+        
+        [imageManager requestImageDataForAsset:asset  
+                                       options:options  
+                                 resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {  
+                                     
+                                     // DDLogDebug(@"dataUTI:%@",dataUTI);  
+                                     
+                                     //gif 图片  
+                                     if ([dataUTI isEqualToString:@"com.compuserve.gif"]) {
+                                         BOOL downloadFinined = (![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey]);  
+                                         if (downloadFinined && imageData) {  
+                                             
+                                             NSDictionary * dic=@{@"imageData":imageData};
+                                             [imgArr addObject:dic];
+                                             
+                                         }  
+                                     }  
+                                     else {  
+                                         //其他格式的图片，直接请求压缩后的图片  
+                                         [imageManager requestImageForAsset:asset  
+                                                                 targetSize:targetSize  
+                                                                contentMode:PHImageContentModeAspectFill  
+                                                                    options:options  
+                                                              resultHandler:^(UIImage *result, NSDictionary *info) {  
+                                                                  // 得到一张 UIImage，展示到界面上  
+                                                                  NSNumber *isDegraded = info[PHImageResultIsDegradedKey];  
+                                                                  if (!isDegraded.boolValue) {  
+                                                                      //                                                                      result = [self fixImageOrientation:result];
+                                                                      NSDictionary * dic=@{@"imageData":imageData};
+                                                                      [imgArr addObject:dic];
+                                                                      
+                                                                      
+                                                                  }  
+                                                              }];  
+                                     }  
+                                     
+                                 }];  
+        
+    }  
+//    Save(_imageDataArray, @"images");
+    
+    return imgArr;
+} 
 /*
 #pragma mark - Navigation
 

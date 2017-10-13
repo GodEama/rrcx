@@ -58,7 +58,7 @@
 }
 -(void)setImgUrl:(NSString *)imgUrl{
     _imgUrl = imgUrl;
-    [self.imgView sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"头像"]];
+    [self.imgView sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"placeholder_avatar"]];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

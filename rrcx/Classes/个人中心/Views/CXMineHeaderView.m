@@ -65,7 +65,7 @@
 
 -(void)setMember_avatar:(NSString *)member_avatar{
     _member_avatar = member_avatar;
-    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:member_avatar] placeholderImage:[UIImage imageNamed:@"头像"]];
+    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:member_avatar] placeholderImage:[UIImage imageNamed:@"icon"]];
 }
 
 

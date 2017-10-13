@@ -65,7 +65,7 @@
         UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imgViewClick:)];
         [imgcell addGestureRecognizer:tapGesture];
         //        [imgcell sd_setImageWithURL:[NSURL URLWithString:model]];
-        [imgcell sd_setImageWithURL:[NSURL URLWithString:model] placeholderImage:nil];
+        [imgcell sd_setImageWithURL:[NSURL URLWithString:model] placeholderImage:[UIImage imageNamed:@"placeholder_blog"]];
         [self.conView addSubview:imgcell];
         if(imgArrs.count==1)
         {
@@ -132,7 +132,7 @@
 
 -(void)setModel:(CXBlogDetailModel *)model{
     _model = model;
-    [self.avatarImgView sd_setImageWithURL:[NSURL URLWithString:model.authorInfo.member_avatar] placeholderImage:nil];
+    [self.avatarImgView sd_setImageWithURL:[NSURL URLWithString:model.authorInfo.member_avatar] placeholderImage:[UIImage imageNamed:@"placeholder_avatar"]];
     self.contenLabel.text = model.microblog_content;
     [self.nameLabel setText:model.authorInfo.member_nick];
     self.timeLabel.text = [NSString stringWithFormat:@"%@",model.add_time];

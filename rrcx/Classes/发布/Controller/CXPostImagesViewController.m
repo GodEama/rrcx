@@ -211,7 +211,7 @@ static NSString *const imageCell=@"imageCell";
                 [_coverImg setImage:[UIImage imageWithContentsOfFile:[DOCUMENTDIRECTORY stringByAppendingPathComponent:[NSString stringWithFormat:@"MyImage/%@",_coverImageUrl]]]];
                 
             }else{
-                [_coverImg sd_setImageWithURL:[NSURL URLWithString:_coverImageUrl] placeholderImage:[UIImage imageNamed:@"adv_placeholder"]];
+                [_coverImg sd_setImageWithURL:[NSURL URLWithString:_coverImageUrl] placeholderImage:[UIImage imageNamed:@"placeholder_articleCover"]];
             }
         }
         [_imagesTable beginUpdates];
@@ -449,7 +449,7 @@ static NSString *const imageCell=@"imageCell";
             [_coverImg setImage:[UIImage imageWithContentsOfFile:[DOCUMENTDIRECTORY stringByAppendingPathComponent:[NSString stringWithFormat:@"MyImage/%@",_coverImageUrl]]]];
             
         }else{
-            [_coverImg sd_setImageWithURL:[NSURL URLWithString:_coverImageUrl] placeholderImage:[UIImage imageNamed:@"adv_placeholder"]];
+            [_coverImg sd_setImageWithURL:[NSURL URLWithString:_coverImageUrl] placeholderImage:[UIImage imageNamed:@"placeholder_articleCover"]];
         }
         
         return YES;

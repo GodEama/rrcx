@@ -87,7 +87,7 @@
 
 -(void)setPeople:(CXListPeople *)people{
     _people = people;
-    [self.avatarImgView sd_setImageWithURL:[NSURL URLWithString:people.member_avatar] placeholderImage:nil];
+    [self.avatarImgView sd_setImageWithURL:[NSURL URLWithString:people.member_avatar] placeholderImage:[UIImage imageNamed:@"placeholder_avatar"]];
     self.nicknameLabel.text = people.member_nick;
     self.introLabel.text = people.member_intro;
     self.isFollow = people.is_followed;

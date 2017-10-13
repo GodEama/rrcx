@@ -554,6 +554,7 @@
 		9DBD48AE1F8DB2C3003E5130 /* YMReportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YMReportViewController.m; sourceTree = "<group>"; };
 		9DBD48B21F8DEBC8003E5130 /* MXNavigationBarManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXNavigationBarManager.h; sourceTree = "<group>"; };
 		9DBD48B31F8DEBC8003E5130 /* MXNavigationBarManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXNavigationBarManager.m; sourceTree = "<group>"; };
+		9DC475AE1F8F00B800501ECA /* rrcx.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = rrcx.entitlements; sourceTree = "<group>"; };
 		9DE43E751F5EA3840065C65B /* CXLoactionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXLoactionsViewController.h; sourceTree = "<group>"; };
 		9DE43E761F5EA3840065C65B /* CXLoactionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXLoactionsViewController.m; sourceTree = "<group>"; };
 		9DE43E781F5FC9DB0065C65B /* YMEditArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMEditArticleViewController.h; sourceTree = "<group>"; };
@@ -919,6 +920,7 @@
 		9D34614C1F55591E00D7E829 /* rrcx */ = {
 			isa = PBXGroup;
 			children = (
+				9DC475AE1F8F00B800501ECA /* rrcx.entitlements */,
 				9D34618E1F56584500D7E829 /* Category */,
 				9D34618F1F56584500D7E829 /* Classes */,
 				9D34619C1F56584500D7E829 /* Common */,
@@ -1707,6 +1709,11 @@
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = N8F3R2GERZ;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					9D3461621F55591E00D7E829 = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -2223,6 +2230,7 @@
 			baseConfigurationReference = 0FB29923EAAA6946E489CA57 /* Pods-rrcx.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = rrcx/rrcx.entitlements;
 				DEVELOPMENT_TEAM = N8F3R2GERZ;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2244,6 +2252,7 @@
 			baseConfigurationReference = A54BA768204C1EC7DCD15BEA /* Pods-rrcx.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = rrcx/rrcx.entitlements;
 				DEVELOPMENT_TEAM = N8F3R2GERZ;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

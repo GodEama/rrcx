@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+static NSString *Channel = @"App Store";
+static BOOL isProduction = TRUE;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

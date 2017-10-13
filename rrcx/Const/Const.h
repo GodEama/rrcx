@@ -104,6 +104,7 @@ extern NSString *const CXDeleteMyCommentURL;
 extern NSString *const CXAMapKey;//高德地图key
 extern NSString *const CXGetSmsCaptcha;//获取短信验证码
 
+extern NSString *const CXJPushAppKey;
 
 
 @end

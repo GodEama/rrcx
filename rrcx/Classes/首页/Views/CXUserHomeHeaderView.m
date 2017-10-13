@@ -17,6 +17,11 @@
     [super awakeFromNib];
     _avatarBtn.layer.masksToBounds = YES;
     _avatarBtn.layer.cornerRadius = _avatarBtn.mj_w/2;
+    
+    _followBtn.layer.masksToBounds = YES;
+    _followBtn.layer.cornerRadius = 4;
+    _followBtn.layer.shadowOffset = CGSizeMake(0, 2);
+    _followBtn.layer.shadowColor  = [UIColor grayColor].CGColor;
   
     
 }
@@ -66,7 +71,7 @@
 
 - (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
 {
-    return [UIImage imageNamed:@"头像" ];
+    return [UIImage imageNamed:@"placeholder_avatar" ];
 }
 
 
@@ -74,7 +79,7 @@
 
 -(void)setMember_avatar:(NSString *)member_avatar{
     _member_avatar = member_avatar;
-    [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:member_avatar] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"头像"]];
+    [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:member_avatar] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"placeholder_avatar"]];
 }
 
 - (IBAction)fansBtnClick:(id)sender {
@@ -116,7 +121,7 @@
     if (isAttention) {
         [self.followBtn setTitle:@"已关注" forState:UIControlStateNormal];
         [self.followBtn setTitleColor:RGB(22, 22, 22) forState:UIControlStateNormal];
-        self.followBtn.layer.borderWidth = 1;
+        self.followBtn.layer.borderWidth = 0.5;
         self.followBtn.layer.backgroundColor = [UIColor groupTableViewBackgroundColor].CGColor;
         self.followBtn.backgroundColor = [UIColor whiteColor];
 

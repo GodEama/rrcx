@@ -251,6 +251,7 @@
 
 
 + (BOOL) checkCardNo:(NSString*) cardNo;
++(void)goToLoginWith:(UIViewController *)vc;
 
 + (UIViewController *)getCurrentVC;
 @end

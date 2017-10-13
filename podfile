@@ -21,6 +21,7 @@ target 'rrcx' do
   pod 'TZImagePickerController'
   pod 'AMapSearch'
   pod 'AMapLocation'
+  pod 'JPush'
   pod 'ShareSDK3',:git => ‘https://github.com/MobClub/ShareSDK-for-iOS-Spec.git'
   pod 'MOBFoundation’
   pod 'ShareSDK3/ShareSDKUI',:git => ‘https://github.com/MobClub/ShareSDK-for-iOS-Spec.git'

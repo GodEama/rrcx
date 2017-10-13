@@ -29,7 +29,7 @@
 -(void)setModel:(CXArticleDetailModel *)model{
     _model = model;
     self.titleLabel.text = model.title;
-    [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:model.authorInfo.member_avatar] forState:UIControlStateNormal placeholderImage:nil];
+    [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:model.authorInfo.member_avatar] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"placeholder_avatar"]];
     self.nicknameLabel.text = model.authorInfo.member_nick;
     self.timeLabel.text = model.add_time;
     [self.followBtn setBackgroundColor:BasicColor];

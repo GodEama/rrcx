@@ -8,6 +8,7 @@
 
 #import "XLChannelControl.h"
 #import "XLChannelView.h"
+#import "CategoryTitleModel.h"
 
 @interface XLChannelControl ()
 {
@@ -77,7 +78,8 @@
     _channelView.inUseTitles = [NSMutableArray arrayWithArray:inUseTitles];
     _channelView.unUseTitles = [NSMutableArray arrayWithArray:unUseTitles];
     [_channelView reloadData];
-
+    [self getUnusedCategories];
+    [self loadRequest];
     CGRect frame = _nav.view.frame;
     frame.origin.y = - _nav.view.bounds.size.height;
     _nav.view.frame = frame;
@@ -88,5 +90,63 @@
         _nav.view.frame = [UIScreen mainScreen].bounds;
     }];
 }
+-(void)getUnusedCategories{
+    
+//    NSString* deviceName = [[UIDevice currentDevice] systemName];
+//    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+//    NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+//    
+//    [PPNetworkHelper setValue:TOKEN?:@"" forHTTPHeaderField:@"Auth-Token"];
+//    [PPNetworkHelper setValue:app_Version forHTTPHeaderField:@"APP-Version"];
+//    [PPNetworkHelper setValue:@"ios" forHTTPHeaderField:@"Device-Type"];
+//    [PPNetworkHelper setValue:deviceName forHTTPHeaderField:@"Device-Name"];
+//    [PPNetworkHelper GET:[NSString stringWithFormat:@"%@%@",SERVER_ADDRESS,CXCategoryTitlesURL] parameters:@{@"type":@1,@"other":@1} responseCache:^(id responseCache) {
+//        
+//    } success:^(id responseObject) {
+//        if ([responseObject[@"code"] integerValue] == 0) {
+//            NSArray *titlesArr=[NSArray yy_modelArrayWithClass:[CategoryTitleModel class] json:responseObject[@"data"]];
+//            _channelView.unUseTitles = [NSMutableArray arrayWithArray:titlesArr];
+//            [_channelView reloadData];
+//        }
+//    } failure:^(NSError *error) {
+//        
+//    }];
+    [CXHomeRequest getCategoryTitles:@{@"type":@1,@"other":@1} responseCache:^(id responseCaches) {
+        
+    } success:^(id response) {
+        if ([response[@"code"] integerValue] == 0) {
+            NSArray *titlesArr=[NSArray yy_modelArrayWithClass:[CategoryTitleModel class] json:response[@"data"]];
+            _channelView.unUseTitles = [NSMutableArray arrayWithArray:titlesArr];
+            [_channelView reloadData];
+        }
+        else{
+            [self cancelClick];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+}
 
+-(void)loadRequest{
+    
+    [CXHomeRequest getCategoryTitles:@{@"type":@"2"} responseCache:^(id responseCaches) {
+        if ([responseCaches[@"code"] intValue] == 0) {
+            NSArray *titlesArr=[NSArray yy_modelArrayWithClass:[CategoryTitleModel class] json:responseCaches[@"data"]];
+            _channelView.inUseTitles = [NSMutableArray arrayWithArray:titlesArr];
+            [_channelView reloadData];
+
+        }
+    } success:^(id response) {
+        if ([response[@"code"] intValue] == 0) {
+            NSArray *titlesArr=[NSArray yy_modelArrayWithClass:[CategoryTitleModel class] json:response[@"data"]];
+            _channelView.inUseTitles = [NSMutableArray arrayWithArray:titlesArr];
+            [_channelView reloadData];
+
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+   
+    
+}
 @end

@@ -122,7 +122,7 @@
     NSString * imgUrl = model.imagePath;
     NSString * text = model.desc;
     if ([imgUrl containsString:@"http"]) {
-        [_imageBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:imgUrl] forState:UIControlStateNormal];
+        [_imageBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:imgUrl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"placeholder_articleCover"]];
 
     }
     else{

@@ -15,6 +15,11 @@
 #import "CXImageArticleCommentViewController.h"
 #import "CXTopView.h"
 
+#import <ShareSDK/ShareSDK+Base.h>
+#import <ShareSDKUI/ShareSDK+SSUI.h>
+#import <ShareSDKExtension/SSEShareHelper.h>
+#import <ShareSDKUI/SSUIShareActionSheetStyle.h>
+
 @interface CXImagesArticleViewController ()<HZPhotoBrowserDelegate,QZTopTextViewDelegate>
 {
     QZTopTextView * _textView;
@@ -105,7 +110,7 @@
 - (UIImage *)CX_photoBrowser:(HZPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
 {
     
-    return [UIImage imageNamed:@"图片"];
+    return [UIImage imageNamed:@"placeholder_articleCover"];
 }
 
 -(CXImageArticleBottomView *)bottomView{
@@ -148,9 +153,7 @@
         
     }
 }
--(void)shareArticle{
-    
-}
+
 
 -(void)commentArticle{
     [_textView.countNumTextView becomeFirstResponder];
@@ -191,6 +194,44 @@
     [super viewWillDisappear:animated]; self.navigationController.navigationBar.barStyle = UIBarStyleDefault; //状态栏改为黑色
         
 }
+-(void)shareArticle{
+    if (self.articleModel.contenturl) {
+        NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+        NSArray* imageArray = self.articleModel.cover_images;
+        if (!imageArray.count) {
+            imageArray = @[@"http://image.baidu.com/search/down?tn=download&ipn=dwnl&word=download&ie=utf8&fr=result&url=http%3A%2F%2Fpic.58pic.com%2F58pic%2F11%2F02%2F19%2F75c58PICjTZ.jpg&thumburl=http%3A%2F%2Fimg0.imgtn.bdimg.com%2Fit%2Fu%3D2362580362%2C1637082548%26fm%3D27%26gp%3D0.jpg"];
+        }
+        [shareParams SSDKSetupShareParamsByText:self.articleModel.title
+                                         images:imageArray
+                                            url:[NSURL URLWithString:self.articleModel.detailsurl]
+                                          title:self.articleModel.title
+                                           type:SSDKContentTypeWebPage];
+        
+        //2、分享（可以弹出我们的分享菜单和编辑界面）
+        [SSUIShareActionSheetStyle setShareActionSheetStyle:ShareActionSheetStyleSystem];
+        
+        [ShareSDK showShareActionSheet:nil items:nil shareParams:shareParams onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+            if (platformType == SSDKPlatformTypeSMS ) {
+                [shareParams SSDKSetupSMSParamsByText:[NSString stringWithFormat:@"%@                \n%@",self.articleModel.title,self.articleModel.detailsurl] title:self.articleModel.title images:imageArray attachments:self.articleModel.detailsurl recipients:nil type:SSDKContentTypeImage];
+            }
+            switch (state) {
+                case SSDKResponseStateSuccess:
+                    [Message showMiddleHint:@"分享成功"];
+                    
+                    break;
+                case SSDKResponseStateCancel:
+                    
+                    break;
+                case SSDKResponseStateFail:
+                    [Message showMiddleHint:@"分享失败"];
+                    break;
+                default:
+                    break;
+            }
+        }];
+    }
+}
+
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }

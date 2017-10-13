@@ -108,7 +108,7 @@
 
 -(void)setCommentModel:(CXComment *)commentModel{
     _commentModel = commentModel;
-    [self.avatarImgView sd_setImageWithURL:[NSURL URLWithString:commentModel.member_avatar] placeholderImage:nil];
+    [self.avatarImgView sd_setImageWithURL:[NSURL URLWithString:commentModel.member_avatar] placeholderImage:[UIImage imageNamed:@"placeholder_avatar"]];
     self.nicknamelabel.text = commentModel.member_nick;
     self.detailLab.text = commentModel.con;
     [self.zanBtn setTitle:commentModel.num_up forState:UIControlStateNormal];

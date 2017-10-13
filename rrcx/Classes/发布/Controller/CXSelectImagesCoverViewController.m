@@ -27,6 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self initlizationView];
     [self initlizationData];
 }
@@ -84,7 +85,7 @@
     CXImageItem * con = _dataArray[indexPath.row];
     
     if ([con.imagePath rangeOfString:@"http"].location != NSNotFound) {
-        [cell.conImg sd_setImageWithURL:[NSURL URLWithString:con.imagePath] placeholderImage:[UIImage imageNamed:@"avatar_placeholder"]];
+        [cell.conImg sd_setImageWithURL:[NSURL URLWithString:con.imagePath] placeholderImage:[UIImage imageNamed:@"placeholder_blog"]];
     }else{
         [cell.conImg setImage:[UIImage imageWithContentsOfFile:[DOCUMENTDIRECTORY stringByAppendingPathComponent:[NSString stringWithFormat:@"MyImage/%@",con.imagePath]]]];
     }
@@ -128,7 +129,7 @@
         layout.itemSize = CGSizeMake(_itemWH, _itemWH);
         layout.minimumInteritemSpacing = _margin;
         layout.minimumLineSpacing = _margin;
-        _photoCollectView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, KWidth, KHeight) collectionViewLayout:layout];
+        _photoCollectView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kTopHeight, KWidth, KHeight - kTopHeight) collectionViewLayout:layout];
         CGFloat rgb = 244 / 255.0;
         _photoCollectView.alwaysBounceVertical = YES;
         _photoCollectView.backgroundColor = [UIColor colorWithRed:rgb green:rgb blue:rgb alpha:1.0];

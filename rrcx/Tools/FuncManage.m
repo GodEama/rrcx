@@ -8,6 +8,8 @@
 
 #import "FuncManage.h"
 #import <CommonCrypto/CommonDigest.h>
+#import "CXLoginViewController.h"
+#import "JPushService.h"
 @implementation FuncManage
 
 + (id)modelWithDictionary:(NSDictionary *)dictionary
@@ -493,6 +495,34 @@
     else
         return NO;
 }
++(void)goToLoginWith:(UIViewController *)vc{
+    [PPNetworkCache removeAllHttpCache];
+    
+    if (TOKEN) {
+        
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"USERNAME"];
+        [JPUSHService deleteAlias:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+            DLog(@"resCode  是 %ld 别名：%@ 序列号：%ld",iResCode,iAlias,seq);
+        } seq:101];
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"登录信息已过期，请重新登录" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            CXLoginViewController * loginVC = [[CXLoginViewController alloc] init];
+            
+            UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+            [vc.navigationController presentViewController:nav animated:YES completion:nil];
+        }];
+        [alert addAction:okAction];
+        [vc presentViewController:alert animated:YES completion:nil];
+    }
+    else{
+        CXLoginViewController * loginVC = [[CXLoginViewController alloc] init];
+        UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+        [vc.navigationController presentViewController:nav animated:YES completion:nil];
+        
+        
+    }
+}
+
 
 + (UIViewController *)getCurrentVC
 {

@@ -98,11 +98,12 @@
         //        [imgcell sd_setImageWithURL:[NSURL URLWithString:model]];
         imgcell.contentMode = UIViewContentModeScaleAspectFill;
         imgcell.clipsToBounds = YES;
-        [imgcell sd_setImageWithURL:[NSURL URLWithString:model] placeholderImage:[UIImage imageNamed:@"图片"]];
         
         [self.imgView addSubview:imgcell];
         if(imgArrs.count==1)
         {
+            [imgcell sd_setImageWithURL:[NSURL URLWithString:model] placeholderImage:[UIImage imageNamed:@"placeholder_articleCover"]];
+
             [imgcell mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(CGSizeMake((KWidth-35), (KWidth-35)/71*32));
                 NSInteger width= i==1? (KWidth-35)/2+space:0;
@@ -112,6 +113,8 @@
         }
         else if (imgArrs.count == 2)
         {
+            [imgcell sd_setImageWithURL:[NSURL URLWithString:model] placeholderImage:[UIImage imageNamed:@"placeholder_blog"]];
+
             [imgcell mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(CGSizeMake((KWidth-35)/2, (KWidth-35)/2));
                 NSInteger width= i==1? (KWidth-35)/2+space:0;
@@ -120,6 +123,8 @@
             }];
         }
         else{
+            [imgcell sd_setImageWithURL:[NSURL URLWithString:model] placeholderImage:[UIImage imageNamed:@"placeholder_blog"]];
+
             [imgcell mas_makeConstraints:^(MASConstraintMaker *make) {
                 
                 // 计算每个cell的上 左间距

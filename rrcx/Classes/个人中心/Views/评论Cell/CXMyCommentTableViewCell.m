@@ -38,7 +38,7 @@
 
 -(void)setModel:(CXMyComment *)model{
     _model = model;
-    [self.avatarImgView sd_setImageWithURL:[NSURL URLWithString:User_avatar?:@""] placeholderImage:[UIImage imageNamed:@"头像"]];
+    [self.avatarImgView sd_setImageWithURL:[NSURL URLWithString:User_avatar?:@""] placeholderImage:[UIImage imageNamed:@"placeholder_avatar"]];
     DLog(@">>>>>>>>>>%@",User_nick);
     self.nicknameLabel.text = [NSString stringWithFormat:@"%@",User_nick];
     self.timeLabel.text = model.add_time;

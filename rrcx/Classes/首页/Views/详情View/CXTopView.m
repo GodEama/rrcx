@@ -102,7 +102,7 @@
 }
 -(void)setMember_avatar:(NSString *)member_avatar{
     _member_avatar = member_avatar;
-    [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:member_avatar] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"头像"]];
+    [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:member_avatar] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"placeholder_avatar"]];
 }
 -(void)setMember_id:(NSString *)member_id{
     _member_id = member_id;

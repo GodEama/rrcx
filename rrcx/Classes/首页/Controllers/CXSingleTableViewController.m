@@ -29,6 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     _data = [NSMutableArray new];
 
     _currentPage = 1;
@@ -127,7 +128,19 @@
                 array = @[@"删除"];
             }
             else if ([model.status isEqualToString:@"3"]) {
-                array = @[@"修改",@"删除"];
+                switch ([model.type integerValue]) {
+                    case 0:
+                        array = @[@"修改",@"删除"];
+                        break;
+                    case 1:
+                        array = @[@"修改",@"删除"];
+                        break;
+                    case 2:
+                        array = @[@"删除"];
+                        break;
+                    default:
+                        break;
+                }
             }
             else if ([model.status isEqualToString:@"2"]){
                 array = @[@"置顶",@"删除"];
@@ -198,6 +211,9 @@
             [_data removeObject:_model];
             NSIndexPath * indexPath = [NSIndexPath indexPathForRow:index inSection:0];
             [_tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
         }
         else{
             [Message showMiddleHint:response[@"message"]];
@@ -289,7 +305,7 @@
 
 -(UITableView *)tableView{
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, KWidth, KHeight) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kTopHeight, KWidth, KHeight - kTopHeight) style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         [_tableView registerClass:[CXShareTableViewCell class] forCellReuseIdentifier:@"articleCell"];

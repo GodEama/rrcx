@@ -47,8 +47,8 @@
 #define User_avatar [[NSUserDefaults standardUserDefaults] objectForKey:@"member_avatar"]
 #define User_nick [[NSUserDefaults standardUserDefaults] objectForKey:@"member_nick"]
 
-#define WX_APPID @"wx4c1b1c9ba810d6c9"
-#define WX_APP_SECRET @"aba84316f49acf2eac49ba7bcf4c07c0"
+#define WX_APPID @"wx89bf19150192e852"
+#define WX_APP_SECRET @"7a6fbb95f35a1d7bb2acfa081a4f38db"
 #define QQ_APPID @"1106432122"
 #define QQ_APPKey @"9rc6vbTvra5i2hI1"
 #define Sina_APPKey @"1238791805"

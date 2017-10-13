@@ -14,6 +14,12 @@
 #import "TZImageManager.h"
 #import "TZImageCropManager.h"
 
+
+#define kStatusBarHeight [[UIApplication sharedApplication] statusBarFrame].size.height
+#define kNavBarHeight 44.0
+#define kTabBarHeight ([[UIApplication sharedApplication] statusBarFrame].size.height>20?83:49)
+#define kTopHeight (kStatusBarHeight + kNavBarHeight)
+
 @interface TZPhotoPreviewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UIScrollViewDelegate> {
     UICollectionView *_collectionView;
     UICollectionViewFlowLayout *_layout;
@@ -224,7 +230,7 @@
     _layout.itemSize = CGSizeMake(self.view.tz_width + 20, self.view.tz_height);
     _layout.minimumInteritemSpacing = 0;
     _layout.minimumLineSpacing = 0;
-    _collectionView.frame = CGRectMake(-10, 0, self.view.tz_width + 20, self.view.tz_height);
+    _collectionView.frame = CGRectMake(-10, kTopHeight, self.view.tz_width + 20, self.view.tz_height);
     [_collectionView setCollectionViewLayout:_layout];
     if (_offsetItemCount > 0) {
         CGFloat offsetX = _offsetItemCount * _layout.itemSize.width;

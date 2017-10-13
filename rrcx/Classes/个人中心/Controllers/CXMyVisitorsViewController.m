@@ -9,7 +9,7 @@
 #import "CXMyVisitorsViewController.h"
 #import "CXFansTableViewCell.h"
 #import "UITableView+FDTemplateLayoutCell.h"
-
+#import "CXUserHomeViewController.h"
 @interface CXMyVisitorsViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView * peopleList;
 @property (nonatomic,strong) NSMutableArray * dataArray;
@@ -23,6 +23,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
+    self.title = @"我的访客";
     _currentPage = 1;
     [self initlizationData];
     [self initlizationViews];
@@ -46,10 +47,10 @@
         
     } success:^(id response) {
         [self.peopleList.mj_header endRefreshing];
-        if (self.currentPage) {
+        if (self.currentPage == 1) {
             [self.dataArray removeAllObjects];
         }
-        NSArray * array = [NSArray yy_modelArrayWithClass:[CXListPeople class] json:response[@"data"]];
+        NSArray * array = [NSArray yy_modelArrayWithClass:[CXListPeople class] json:response[@"data"][@"visitorList"]];
        // [self.dataArray addObjectsFromArray:array];
         if (array.count) {
             [self.peopleList.mj_footer endRefreshing];
@@ -107,7 +108,9 @@
     return _dataArray.count;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSArray * array = _dataArray[section];
+    NSDictionary * dic = _dataArray[section];
+    NSArray * array = [dic.allValues firstObject];
+
     return array.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -130,27 +133,40 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return [tableView fd_heightForCellWithIdentifier:@"peopleCell" cacheByIndexPath:indexPath configuration:^(id cell) {
-        [cell setPeople:_dataArray[indexPath.row]];
+        NSDictionary * dic = _dataArray[indexPath.section];
+        NSArray * array = [dic.allValues firstObject];
+        CXListPeople * model = array[indexPath.row];
+        [cell setPeople:model];
     }];
 }
 
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CXFansTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"peopleCell"];
-    CXListPeople * model = _dataArray[indexPath.row];
+    NSDictionary * dic = _dataArray[indexPath.section];
+    NSArray * array = [dic.allValues firstObject];
+    CXListPeople * model = array[indexPath.row];
     cell.people = model;
+    cell.followBtn.hidden = YES;
   
     return cell;
 }
 
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary * dic = _dataArray[indexPath.section];
+    NSArray * array = [dic.allValues firstObject];
+    CXListPeople * model = array[indexPath.row];
+    CXUserHomeViewController * userHomeVC = [[CXUserHomeViewController alloc] init];
+    userHomeVC.member_id = model.member_id;
+    [self.navigationController pushViewController:userHomeVC animated:YES];
+}
 
 
 
 
 -(UITableView *)peopleList{
     if (!_peopleList) {
-        _peopleList = [[UITableView alloc] initWithFrame:CGRectMake(0, kTopHeight, KWidth, KHeight) style:UITableViewStyleGrouped];
+        _peopleList = [[UITableView alloc] initWithFrame:CGRectMake(0, kTopHeight, KWidth, KHeight - kTopHeight) style:UITableViewStyleGrouped];
         _peopleList.delegate = self;
         _peopleList.dataSource = self;
         [_peopleList registerClass:[CXFansTableViewCell class] forCellReuseIdentifier:@"peopleCell"];

@@ -53,5 +53,5 @@
 @property (nonatomic,copy) NSString * islike;
 @property (nonatomic,copy) NSString *iscollect;
 @property (nonatomic,copy) NSString *ishits;
-
+@property (nonatomic,copy) NSString *detailsurl;
 @end

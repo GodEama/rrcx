@@ -161,7 +161,7 @@ typedef NS_ENUM(NSInteger,photoType){
             [self uploadOneCoverImageWithFileName:coverImgUrl andIndex:0];
         }
         else{
-            [self.coverImg sd_setImageWithURL:[NSURL URLWithString:coverImgUrl] placeholderImage:[UIImage imageNamed:@"adv_placeholder"]];
+            [self.coverImg sd_setImageWithURL:[NSURL URLWithString:coverImgUrl] placeholderImage:[UIImage imageNamed:@"placeholder_articleCover"]];
         }
     }
 }
@@ -301,7 +301,7 @@ typedef NS_ENUM(NSInteger,photoType){
                 [cell.imgView setImage:[UIImage imageWithContentsOfFile:[DOCUMENTDIRECTORY stringByAppendingPathComponent:[NSString stringWithFormat:@"MyImage/%@",con.value]]]];
             }
             else{
-                [cell.imgView sd_setImageWithURL:[NSURL URLWithString:con.value] placeholderImage:[UIImage imageNamed:@"avatar_placeholder"]];
+                [cell.imgView sd_setImageWithURL:[NSURL URLWithString:con.value] placeholderImage:[UIImage imageNamed:@"placeholder_blog"]];
             }
             cell.deleteBtn.tag = indexPath.row;
             cell.upBtn.tag = indexPath.row;
@@ -797,7 +797,7 @@ typedef NS_ENUM(NSInteger,photoType){
                 [self.coverImg setImage:[UIImage imageWithContentsOfFile:[DOCUMENTDIRECTORY stringByAppendingPathComponent:[NSString stringWithFormat:@"MyImage/%@",url]]]];
                 
             }else{
-                [self.coverImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"adv_placeholder"]];
+                [self.coverImg sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"placeholder_articleCover"]];
             }
             
         }

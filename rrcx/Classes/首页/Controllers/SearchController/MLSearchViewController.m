@@ -81,8 +81,8 @@ static NSString *const HistoryCellID = @"HistoryCellID";
     
     
     // 创建搜索框
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(10, 7, kScreenWidth-64-20, 30)];
-    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(-10, 0, titleView.frame.size.width, 30)
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(10, 7, kScreenWidth-64-20, 35)];
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(-10, 0, titleView.frame.size.width, 35)
                               ];
     searchBar.placeholder = @"搜索内容";
     searchBar.delegate = self;
@@ -247,21 +247,27 @@ static NSString *const HistoryCellID = @"HistoryCellID";
     self.searchBar.text = label.text;
     
     // 缓存数据并且刷新界面
+//    [self saveSearchCacheAndRefreshView];
+    
+//    self.tableView.tableFooterView.hidden = NO;
+//    
+//    
+//    
+//    
+//    self.searchSuggestionVC.view.hidden = NO;
+//    self.tableView.hidden = YES;
+//    [self.view bringSubviewToFront:self.searchSuggestionVC.view];
+    self.searchBar.text = label.text;
     [self saveSearchCacheAndRefreshView];
-    
-    self.tableView.tableFooterView.hidden = NO;
-    
-    
-    
-    
-    self.searchSuggestionVC.view.hidden = NO;
-    self.tableView.hidden = YES;
-    [self.view bringSubviewToFront:self.searchSuggestionVC.view];
-    
-    //创建一个消息对象
-    NSNotification * notice = [NSNotification notificationWithName:@"searchBarDidChange" object:nil userInfo:@{@"searchText":label.text}];
-    //发送消息
-    [[NSNotificationCenter defaultCenter]postNotification:notice];
+    CXSingleTableViewController * articleListVC = [[CXSingleTableViewController alloc] init];
+    articleListVC.listType = articleListTypeSearch;
+    articleListVC.keyword = label.text;
+    [self.navigationController pushViewController:articleListVC animated:YES];
+
+//    //创建一个消息对象
+//    NSNotification * notice = [NSNotification notificationWithName:@"searchBarDidChange" object:nil userInfo:@{@"searchText":label.text}];
+//    //发送消息
+//    [[NSNotificationCenter defaultCenter]postNotification:notice];
 }
 
 
@@ -317,20 +323,7 @@ static NSString *const HistoryCellID = @"HistoryCellID";
     
     return HistoryCell;
     
-//    // 添加关闭按钮
-//    UIButton *closetButton = [[UIButton alloc] init];
-//    // 设置图片容器大小、图片原图居中
-//    closetButton.mj_size = CGSizeMake(cell.mj_h, cell.mj_h);
-//    [closetButton setTitle:@"x" forState:UIControlStateNormal];
-//    [closetButton addTarget:self action:@selector(closeDidClick:) forControlEvents:UIControlEventTouchUpInside];
-//    cell.accessoryView = closetButton;
-//    [closetButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-//    
-//    cell.textLabel.textColor = [UIColor grayColor];
-//    cell.textLabel.font = [UIFont systemFontOfSize:14];
-//    cell.textLabel.text = self.searchHistories[indexPath.row];
-//    
-//    return cell;
+
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -360,25 +353,33 @@ static NSString *const HistoryCellID = @"HistoryCellID";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // 取出选中的cell
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    HistorySearchCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    self.searchBar.text = cell.textLabel.text;
     
     // 缓存数据并且刷新界面
+    //[self saveSearchCacheAndRefreshView];
+    
+//    [self searchBarSearchButtonClicked:self.searchBar];
+//
+//
+//
+//
+//    self.searchSuggestionVC.view.hidden = NO;
+//    self.tableView.hidden = YES;
+//    [self.view bringSubviewToFront:self.searchSuggestionVC.view];
+    self.searchBar.text = cell.tagNameLab.text;
+
     [self saveSearchCacheAndRefreshView];
-    
-    [self searchBarSearchButtonClicked:self.searchBar];
-    
-    
-    
-    
-    self.searchSuggestionVC.view.hidden = NO;
-    self.tableView.hidden = YES;
-    [self.view bringSubviewToFront:self.searchSuggestionVC.view];
-    //创建一个消息对象
-    NSNotification * notice = [NSNotification notificationWithName:@"searchBarDidChange" object:nil userInfo:@{@"searchText":cell.textLabel.text}];
-    //发送消息
-    [[NSNotificationCenter defaultCenter]postNotification:notice];
+
+    CXSingleTableViewController * articleListVC = [[CXSingleTableViewController alloc] init];
+    articleListVC.listType = articleListTypeSearch;
+    articleListVC.keyword = cell.tagNameLab.text;
+    [self.navigationController pushViewController:articleListVC animated:YES];
+
+//    //创建一个消息对象
+//    NSNotification * notice = [NSNotification notificationWithName:@"searchBarDidChange" object:nil userInfo:@{@"searchText":cell.textLabel.text}];
+//    //发送消息
+//    [[NSNotificationCenter defaultCenter]postNotification:notice];
 }
 
 - (CGFloat)getWidthWithTitle:(NSString *)title font:(UIFont *)font {

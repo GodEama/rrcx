@@ -38,7 +38,7 @@
     
     [self loadRequest];
     [self GetHotSearchTag];
-    [self getUnusedCategories];
+    //[self getUnusedCategories];
 }
 -(NSMutableArray *)hotSearchTags{
     if (!_hotSearchTags) {
@@ -177,12 +177,22 @@
 
 
 -(void)getUnusedCategories{
-    [CXHomeRequest getCategoryTitles:@{@"type":@1,@"other":@1} responseCache:^(id responseCaches) {
+    
+    NSString* deviceName = [[UIDevice currentDevice] systemName];
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    
+    [PPNetworkHelper setValue:TOKEN?:@"" forHTTPHeaderField:@"Auth-Token"];
+    [PPNetworkHelper setValue:app_Version forHTTPHeaderField:@"APP-Version"];
+    [PPNetworkHelper setValue:@"ios" forHTTPHeaderField:@"Device-Type"];
+    [PPNetworkHelper setValue:deviceName forHTTPHeaderField:@"Device-Name"];
+    [PPNetworkHelper GET:[NSString stringWithFormat:@"%@%@",SERVER_ADDRESS,CXCategoryTitlesURL] parameters:@{@"type":@1,@"other":@1} responseCache:^(id responseCache) {
         
-    } success:^(id response) {
-        NSArray *titlesArr=[NSArray yy_modelArrayWithClass:[CategoryTitleModel class] json:response[@"data"]];
-        self.unusedCateArray = [NSMutableArray arrayWithArray:titlesArr];
-        
+    } success:^(id responseObject) {
+        if ([responseObject[@"code"] integerValue] == 0) {
+            NSArray *titlesArr=[NSArray yy_modelArrayWithClass:[CategoryTitleModel class] json:responseObject[@"data"]];
+            self.unusedCateArray = [NSMutableArray arrayWithArray:titlesArr];
+        }
     } failure:^(NSError *error) {
         
     }];
@@ -201,7 +211,7 @@
         NSDictionary * dic = @{@"used":array};
         [CXHomeRequest setHomeCategoriesWithParameters:@{@"type":@0,@"nav":[PPNetworkCache dataWithJSONObject:dic]} success:^(id response) {
             [self loadRequest];
-            [self getUnusedCategories];
+//            [self getUnusedCategories];
         } failure:^(NSError *error) {
             
         }];

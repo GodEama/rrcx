@@ -351,6 +351,7 @@
     return [PPNetworkHelper POST:URL parameters:parameter success:^(id responseObject) {
         
         // 在这里你可以根据项目自定义其他一些重复操作,比如加载页面时候的等待效果, 提醒弹窗....
+        
         [self removeLocalUserTokenWithResult:responseObject];
         success(responseObject);
         
@@ -378,6 +379,7 @@
         cache(responseCache);
     } success:^(id responseObject) {
         [self removeLocalUserTokenWithResult:responseObject];
+        
         success(responseObject);
     } failure:^(NSError *error) {
         failure(error);
@@ -387,6 +389,14 @@
 +(void)removeLocalUserTokenWithResult:(id)responseObject{
     if ([responseObject[@"code"] integerValue] == -1) {
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"USERTOKEN"];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"USERID"];
+
+        [FuncManage goToLoginWith:[FuncManage getCurrentVC]];
+
+        
     }
 }
+
+
+
 @end

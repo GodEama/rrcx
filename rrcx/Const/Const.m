@@ -104,5 +104,8 @@ NSString *const CXDeleteMyCommentURL = @"/Api/CommentL/myCommentDelete";
 
 
 
+NSString *const CXJPushAppKey = @"23ac5730ef79f2e1168dfe32";
+
+
 
 @end

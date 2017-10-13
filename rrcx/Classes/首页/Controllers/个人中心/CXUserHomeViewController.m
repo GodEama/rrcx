@@ -58,6 +58,9 @@
             self.headerView.isAttention = [response[@"data"][@"ishits"] intValue] ==1;
             self.title = user.member_nick;
         }
+        else{
+            
+        }
 
         
     } failure:^(NSError *error) {
@@ -95,12 +98,12 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            return 251;
-        }
-        return 50;
+        return 251;
     }
-    return CGRectGetHeight(self.view.bounds);
+    else{
+        return self.view.mj_h;
+
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -177,7 +180,7 @@
 #pragma mark UIScrollView
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGFloat bottomCellOffset = [_mainTable rectForSection:1].origin.y -kTopHeight;
+    CGFloat bottomCellOffset = [_mainTable rectForSection:1].origin.y;
     if (scrollView.contentOffset.y >= bottomCellOffset) {
         scrollView.contentOffset = CGPointMake(0, bottomCellOffset);
         if (self.canScroll) {
@@ -205,9 +208,18 @@
         _mainTable = [[CXBaseTableView alloc] initWithFrame:CGRectMake(0, 0, KWidth , KHeight) style:UITableViewStylePlain];
         _mainTable.delegate = self;
         _mainTable.dataSource = self;
+        
     }
     
     return _mainTable;
+}
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0) {
+        return 251.0f;
+    }
+    else{
+        return 100;
+    }
 }
 
 -(CXFullScreenLoadingView *)fullLoadingView
@@ -218,15 +230,6 @@
     }
     return _fullLoadingView;
 }
-
-
-
-
-
-
-
-
-
 
 
 -(CXUserHomeHeaderView *)headerView{
@@ -260,8 +263,14 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO ;
-    
+    self.mainTable.delegate = self;
+    [MXNavigationBarManager managerWithController:self];
+    [MXNavigationBarManager changeAlphaWithCurrentOffset:self.mainTable.contentOffset.y];
+
+
 }
+
+
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.mainTable.delegate = nil;
@@ -273,7 +282,7 @@
 - (void)initBarManager {
     [MXNavigationBarManager managerWithController:self];
     [MXNavigationBarManager setBarColor:[UIColor whiteColor]];
-    [MXNavigationBarManager setTintColor:[UIColor whiteColor]];
+    [MXNavigationBarManager setTintColor:[UIColor clearColor]];
     [MXNavigationBarManager setStatusBarStyle:UIStatusBarStyleDefault];
     [MXNavigationBarManager setZeroAlphaOffset:0];
     [MXNavigationBarManager setFullAlphaOffset:kTopHeight];
