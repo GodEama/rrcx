@@ -13,6 +13,7 @@
 #import "CategoryAddView.h"
 #import "CXChannelManagementViewController.h"
 #import "XLChannelControl.h"
+#import "CXMyMessagesViewController.h"
 
 #import "MLSearchViewController.h"
 #import "CXhotSearchTagModel.h"
@@ -159,6 +160,17 @@
             searchVC.tagsArray = weakSelf.hotSearchTags;
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:searchVC];
             [weakSelf presentViewController:nav  animated:YES completion:nil];
+        };
+        _topBarView.messageClickBlock = ^{
+            if (!TOKEN) {
+                [FuncManage goToLoginWith:weakSelf];
+            }
+            else{
+                CXMyMessagesViewController * myMessageVC = [[CXMyMessagesViewController alloc] init];
+                
+                [weakSelf.navigationController pushViewController:myMessageVC animated:YES];
+            }
+            
         };
         
     }

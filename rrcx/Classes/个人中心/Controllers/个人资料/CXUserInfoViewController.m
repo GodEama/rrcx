@@ -182,6 +182,7 @@
                 
                 __block typeof(self) ageVC = self;
                 datePicker.maxDate = [NSDate date];
+                datePicker.minDate = [NSDate dateWithTimeIntervalSince1970:-3600 * 24 * 365 * 30];
                 datePicker.endBlock = ^(NSDate *date) {
                     
                     
@@ -356,7 +357,7 @@
     //上传进度
     request.uploadProgress = ^(int64_t bytesSent, int64_t totalByteSent, int64_t totalBytesExpectedToSend) {
         
-        NSLog(@"%lld, %lld, %lld", bytesSent, totalByteSent, totalBytesExpectedToSend);
+        DLog(@"%lld, %lld, %lld", bytesSent, totalByteSent, totalBytesExpectedToSend);
         
     };
     

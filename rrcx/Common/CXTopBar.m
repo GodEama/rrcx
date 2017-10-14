@@ -16,6 +16,7 @@
 @property(nonatomic,strong) UIImageView *serachImg;
 @property(nonatomic,strong) UILabel *searchTipLable;
 @property(nonatomic,strong) UIButton *searchBtn;
+@property(nonatomic,strong) UIButton * messageBtn;
 @end
 
 @implementation CXTopBar
@@ -46,6 +47,7 @@
     [self.centerView addSubview: self.serachImg];
     [self.centerView addSubview: self.searchTipLable];
     [self.centerView addSubview: self.searchBtn];
+    [self addSubview:self.messageBtn];
     [self.rightIconBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self).offset(-12);
         make.size.mas_equalTo(CGSizeMake(32, 32));
@@ -73,6 +75,12 @@
         make.left.equalTo(self.centerView);
         make.top.equalTo(self.centerView);
         make.size.mas_equalTo(self.centerView);
+    }];
+    [self.messageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.rightIconBtn);
+        make.right.equalTo(self.rightIconBtn);
+        make.top.equalTo(self.rightIconBtn);
+        make.bottom.equalTo(self.rightIconBtn);
     }];
 }
 
@@ -129,12 +137,22 @@
     }
     return _searchBtn;
 }
-
+-(UIButton *)messageBtn{
+    if (!_messageBtn) {
+        _messageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_messageBtn addTarget:self action:@selector(messageBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _messageBtn;
+}
 -(void)searchBtnClick{
     if (self.searchClickBlock) {
         self.searchClickBlock();
     }
 }
-
+-(void)messageBtnClick{
+    if (self.messageClickBlock) {
+        self.messageClickBlock();
+    }
+}
 
 @end

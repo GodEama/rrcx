@@ -210,7 +210,7 @@
 
 -(UITableView *)commentTable{
     if (!_commentTable) {
-        _commentTable = [[UITableView alloc] initWithFrame:CGRectMake(0, kTopHeight, KWidth, KHeight - 49 - kTopHeight) style:UITableViewStylePlain];
+        _commentTable = [[UITableView alloc] initWithFrame:CGRectMake(0, kTopHeight, KWidth, KHeight - kTabBarHeight - kTopHeight) style:UITableViewStylePlain];
         _commentTable.dataSource = self;
         _commentTable.delegate = self;
         
@@ -235,7 +235,7 @@
 }
 -(CXArticleBottomView *)bottomView{
     if (!_bottomView) {
-        _bottomView = [[CXArticleBottomView alloc] initWithFrame:CGRectMake(0, KHeight - 49, KWidth, 49)];
+        _bottomView = [[CXArticleBottomView alloc] initWithFrame:CGRectMake(0, KHeight - kTabBarHeight, KWidth, 49)];
         [_bottomView.commentBtn addTarget:self action:@selector(commentArticle) forControlEvents:UIControlEventTouchUpInside];
         [_bottomView.collectBtn setImage:[UIImage imageNamed:@"praise"] forState:UIControlStateNormal];
         [_bottomView.collectBtn addTarget:self action:@selector(zanBlog) forControlEvents:UIControlEventTouchUpInside];

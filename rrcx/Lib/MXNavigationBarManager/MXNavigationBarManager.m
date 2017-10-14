@@ -206,7 +206,6 @@ static const float   kDefaultAnimationTime = 0.35f;
 
 + (void)setNavigationBarColorWithAlpha:(float)alpha {
     MXNavigationBarManager *manager = [self sharedManager];
-    NSLog(@"alpha = %f", alpha);
     [self setBackgroundImage:[self imageWithColor:[manager.barColor colorWithAlphaComponent:alpha]]];
 }
 

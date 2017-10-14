@@ -383,4 +383,15 @@ typedef void(^PPHttpRequestCache)(id responseCaches);
 +(NSURLSessionTask *)getMyCommentsListWithParameters:(id)parameters responseCache:(PPHttpRequestCache)responseCache success:(PPRequestSuccess)success failure:(PPRequestFailure)failure;
 //删除我的评论
 +(NSURLSessionTask *)deleteMyCommentsWithParameters:(id)parameters success:(PPRequestSuccess)success failure:(PPRequestFailure)failure;
+
+/**
+ 获取我的消息列表
+
+ @param parameters <#parameters description#>
+ @param responseCache <#responseCache description#>
+ @param success <#success description#>
+ @param failure <#failure description#>
+ @return <#return value description#>
+ */
++(NSURLSessionTask *)getMyMessages:(id)parameters responseCache:(PPHttpRequestCache)responseCache success:(PPRequestSuccess)success failure:(PPRequestFailure)failure;
 @end

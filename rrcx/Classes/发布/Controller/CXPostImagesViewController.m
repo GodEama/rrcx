@@ -20,6 +20,8 @@
 #import "TZGifPhotoPreviewController.h"
 #import "YMEditArticleViewController.h"
 #import <AliyunOSSiOS/AliyunOSSiOS.h>
+
+#import "CXArticleDetailModel.h"
 @interface CXPostImagesViewController ()<UITableViewDelegate,UITableViewDataSource,TZImagePickerControllerDelegate>
 {
     NSMutableArray *_selectedPhotos;
@@ -45,6 +47,7 @@
 @property (nonatomic, strong) MBProgressHUD * hud;
 @property (nonatomic, copy)   NSString * coverImageUrl;
 @property (nonatomic, assign) NSInteger coverImageIndex;
+@property (nonatomic, strong) CXArticleDetailModel * articleModel;
 
 
 @end
@@ -87,15 +90,70 @@ static NSString *const imageCell=@"imageCell";
     
 }
 -(void)initlizationData{
-    if (self.firstAsset.count) {
-        [self printAssetsName:self.firstAsset];
+    if (self.loadImagesType == netLoadImagesType) {
+        [CXHomeRequest getMyArticleDataWithParameters:@{@"article_id":self.articleID} success:^(id response) {
+            if ([response[@"code"] intValue] == 0) {
+                _articleModel = [CXArticleDetailModel yy_modelWithJSON:response[@"data"]];
+                NSDictionary * dic = @{@"cat_id":_articleModel.cat_id,@"title":_articleModel.title,@"addr":_articleModel.addr?:@"",@"images":[NSArray new],@"digest":_articleModel.digest?:@"",@"is_original":_articleModel.is_original?:@"",@"con_list":_articleModel.con_list,@"cover_images":_articleModel.cover_images};
+
+                [self loadDataFromDic:dic];
+
+            }
+        } failure:^(NSError *error) {
+
+        }];
+        
     }
     else{
-        [self cancelSend];
+        if (self.firstAsset.count) {
+            [self printAssetsName:self.firstAsset];
+        }
+        else{
+            [self cancelSend];
+        }
     }
+    
     
     
 }
+-(void)loadDataFromDic:(NSDictionary *)dic{
+    _contentDic = [NSMutableDictionary dictionaryWithDictionary:dic];
+    if ([_contentDic[@"title"] isEqualToString:@""]) {
+        _titleTF.text = @"请输入标题";
+    }
+    else{
+        _titleTF.text = _contentDic[@"title"];
+        
+    }
+    NSArray * array = dic[@"cover_images"];
+    if (array.count) {
+        _coverImageUrl = array[0];
+        
+        [self.coverImg sd_setImageWithURL:[NSURL URLWithString:_coverImageUrl] placeholderImage:[UIImage imageNamed:@"placeholder_articleCover"]];
+        
+    }
+    NSArray * arr = _contentDic[@"con_list"];
+    for (NSInteger i = 0;i<arr.count;i++) {
+        NSDictionary * dict = arr[i];
+        CXImageItem * con = [CXImageItem allocWithDictionary_net:dict];
+        [_dataArray addObject:con];
+        if (array.count) {
+            if ([_coverImageUrl isEqualToString:con.imagePath]) {
+                _coverImageIndex = i;
+            }
+        }
+    }
+  
+    
+    [_imagesTable reloadData];
+    
+    
+    
+    
+    
+}
+
+
 -(void)cancelSend{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -113,7 +171,6 @@ static NSString *const imageCell=@"imageCell";
     for (CXImageItem * item in _dataArray) {
         [arr addObject:item.imagePath];
     }
-    DLog(@">>>>>>>>%@",arr);
     return _dataArray.count + 1;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -703,20 +760,27 @@ static NSString *const imageCell=@"imageCell";
     [self loadAllContent];
     //index.php?m=Api&c=Article&a=save&key=令牌
     NSString * postUrl;
+    NSDictionary * parameters;
+    NSString * conStr = [PPNetworkCache dataWithJSONObject:_contentDic];
+
     switch (_loadImagesType) {
         case localLoadImagesType:
             postUrl = CXPostArticle;
+            parameters = @{@"data":conStr,@"type":@1};
             break;
         case netLoadImagesType:
             postUrl = CXFixArticle;
+            parameters = @{@"data":conStr,@"type":@1,@"article_id":self.articleID};
+
             break;
             
         default:
             postUrl = CXPostArticle;
+            parameters = @{@"data":conStr,@"type":@1};
+
             break;
     }
-    NSString * conStr = [PPNetworkCache dataWithJSONObject:_contentDic];
-    [CXHomeRequest postArticleWithUrl:postUrl andParameters:@{@"data":conStr,@"type":@1} success:^(id response) {
+    [CXHomeRequest postArticleWithUrl:postUrl andParameters:parameters success:^(id response) {
         [_hud hideAnimated:YES];
         if ([response[@"code"] intValue] == 0) {
             [Message showMiddleHint:@"上传成功"];

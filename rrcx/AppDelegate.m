@@ -39,12 +39,10 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-//    CXLoginViewController * loginVC = [[CXLoginViewController alloc] init];
-//    UINavigationController * loginNav = [[UINavigationController alloc] initWithRootViewController:loginVC];
-//    self.window.rootViewController = loginNav;
+
     // AppDelegate 进行全局设置
     if (@available(iOS 11.0, *)){
-        [[UIScrollView appearance] setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
+        [[UITableView appearance] setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
     }
     
     

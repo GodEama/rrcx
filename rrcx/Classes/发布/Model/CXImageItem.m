@@ -13,12 +13,20 @@
 {
     return [[self alloc] initWithDictionary:dic];
 }
-
++(id)allocWithDictionary_net:(NSDictionary *)dic
+{
+    return [[self alloc] allocWithDictionary_net:dic];
+}
 -(id)initWithDictionary:(NSDictionary *)dic
 {
     self.imagePath = [dic objectForKey:@"img"];
     self.desc = [dic objectForKey:@"text"];
     
+    return self;
+}
+-(id)allocWithDictionary_net:(NSDictionary *)dic{
+    self.imagePath = [dic objectForKey:@"value"];
+    self.desc = [dic objectForKey:@"desc"];
     return self;
 }
 @end

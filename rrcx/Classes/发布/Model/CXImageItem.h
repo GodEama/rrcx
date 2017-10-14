@@ -12,4 +12,6 @@
 @property (nonatomic,copy) NSString * imagePath;
 @property (nonatomic,copy) NSString * desc;
 +(id)parserWithDictionary:(NSDictionary *)dic;
++(id)allocWithDictionary_net:(NSDictionary *)dic;
+
 @end

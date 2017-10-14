@@ -18,6 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    self.automaticallyAdjustsScrollViewInsets = NO;
     [self initlizationView];
     [self initlizationData];
 }
@@ -25,6 +26,14 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
     self.title =_contentType == titleType?@"设置标题": @"编辑文字";
     [self.view addSubview:self.textView];
+    [_textView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(10);
+        make.right.equalTo(self.view).offset(-10);
+        make.top.equalTo(self.view).offset(10);
+
+        make.bottom.equalTo(self.view).offset(-10);
+
+    }];
     UIBarButtonItem * rightItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveContent)];
     NSDictionary *attrsDic=@{
                              NSForegroundColorAttributeName:BasicColor,
@@ -37,7 +46,6 @@
         self.placeHolder = @"标题最多不超过40个字";
         
     }
-    _textView.font = [UIFont systemFontOfSize:16];
     UIBarButtonItem * leftItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancelEdit)];
     [leftItem setTitleTextAttributes:attrsDic forState:UIControlStateNormal];
     self.navigationItem.leftBarButtonItem = leftItem;
@@ -72,12 +80,18 @@
 }
 -(void)initlizationData{
     _textView.text = self.contentText;
-    [_textView becomeFirstResponder];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
+        [_textView becomeFirstResponder];
+
+    });
 }
 
 -(UITextView *)textView{
     if (!_textView) {
-        _textView = [[UITextView alloc] initWithFrame:CGRectMake(8, 8, KWidth - 16, KHeight - 8)];
+        _textView = [[UITextView alloc] init];
+        _textView.font = [UIFont systemFontOfSize:16];
     }
     return _textView;
 }

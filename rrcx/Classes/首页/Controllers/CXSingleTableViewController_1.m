@@ -110,14 +110,14 @@ static NSString *const discoverCell=@"discoverCell";
         weakSelf.blog = model;
         if ([model.member_id isEqualToString:User_id]) {
             //是自己的动态
-            SelectView * selectView = [[SelectView alloc] initWithTitle:@[@"收藏",@"删除"] delegate:self];
+            SelectView * selectView = [[SelectView alloc] initWithTitle:@[/*@"收藏",*/@"删除"] delegate:self];
             selectView.myTag = 102;
             selectView.tag = indexPath.row;
             [selectView showInWindow];
         }
         else{
             //别人的动态
-            SelectView * selectView = [[SelectView alloc] initWithTitle:@[@"收藏",@"举报"] delegate:self];
+            SelectView * selectView = [[SelectView alloc] initWithTitle:@[/*@"收藏",*/@"举报"] delegate:self];
             selectView.myTag = 101;
             selectView.tag = indexPath.row;
             [selectView showInWindow];
@@ -163,7 +163,7 @@ static NSString *const discoverCell=@"discoverCell";
 
 
 -(void)selectView:(SelectView *)selectView index:(NSInteger)index{
-    if (index == 0) {
+    if (index == 1000) {//未设置收藏功能
         //收藏
         [CXHomeRequest collectArticleWithParameters:@{@"type":@2,@"id":_blog.ID} success:^(id response) {
             if ([response[@"code"] intValue] == 0) {
@@ -176,7 +176,7 @@ static NSString *const discoverCell=@"discoverCell";
             
         }];
     }
-    if (index == 1) {
+    if (index == 0) {
         
         if (selectView.myTag == 101) {
             //举报

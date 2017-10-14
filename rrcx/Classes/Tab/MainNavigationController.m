@@ -60,12 +60,15 @@
 //该方法可以解决popRootViewController时tabbar的bug
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
     //删除系统自带的tabBarButton
-    for (UIView *tabBar in self.tabBarController.tabBar.subviews) {
-        if ([tabBar isKindOfClass:NSClassFromString(@"UITabBarButton")]) {
-            [tabBar removeFromSuperview];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        for (UIView *tabBar in self.tabBarController.tabBar.subviews) {
+            if ([tabBar isKindOfClass:NSClassFromString(@"UITabBarButton")]) {
+                [tabBar removeFromSuperview];
+            }
+            
         }
-        
-    }
+    });
+    
 }
 
 

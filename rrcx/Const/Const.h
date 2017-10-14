@@ -99,6 +99,7 @@ extern NSString *const CXMyVisitorsListURL;
 
 extern NSString *const CXMyCommentsListURL;
 extern NSString *const CXDeleteMyCommentURL;
+extern NSString *const CXMyMessagesURL;
 
 
 extern NSString *const CXAMapKey;//高德地图key

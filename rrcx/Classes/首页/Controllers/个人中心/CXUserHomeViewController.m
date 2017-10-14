@@ -127,7 +127,7 @@
             CXSingleTableViewController_1 * newsVC = [[CXSingleTableViewController_1 alloc] init];
             newsVC.blogListType = microblogListTypeUserHome;
             newsVC.personId = self.member_id;
-            newsVC.tableView.frame = CGRectMake(0, 0, KWidth, KHeight - 50);
+            newsVC.tableView.frame = CGRectMake(0, 0, KWidth, KHeight - 50 - kTopHeight);
             
             [contentVCs addObject:newsVC];
             CXSingleTableViewController * articleVC = [[CXSingleTableViewController alloc] init];
@@ -136,7 +136,7 @@
                 articleVC.listType = articleListTypeMine;
             }
             articleVC.personId = self.member_id;
-            articleVC.tableView.frame = CGRectMake(0, 0, KWidth, KHeight - 50);
+            articleVC.tableView.frame = CGRectMake(0, 0, KWidth, KHeight - 50 -kTopHeight);
             [contentVCs addObject:articleVC];
             
             _contentCell.viewControllers = contentVCs;
@@ -180,7 +180,7 @@
 #pragma mark UIScrollView
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGFloat bottomCellOffset = [_mainTable rectForSection:1].origin.y;
+    CGFloat bottomCellOffset = [_mainTable rectForSection:1].origin.y - kTopHeight;
     if (scrollView.contentOffset.y >= bottomCellOffset) {
         scrollView.contentOffset = CGPointMake(0, bottomCellOffset);
         if (self.canScroll) {

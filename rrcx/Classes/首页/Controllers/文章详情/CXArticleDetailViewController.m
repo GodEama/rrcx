@@ -204,7 +204,7 @@
 
 -(UITableView *)commentTable{
     if (!_commentTable) {
-        _commentTable = [[UITableView alloc] initWithFrame:CGRectMake(0, kTopHeight, KWidth, KHeight - 49 - kTopHeight) style:UITableViewStylePlain];
+        _commentTable = [[UITableView alloc] initWithFrame:CGRectMake(0, kTopHeight, KWidth, KHeight - kTabBarHeight - kTopHeight) style:UITableViewStylePlain];
         _commentTable.dataSource = self;
         _commentTable.delegate = self;
         [_commentTable registerClass:[CXCommentTableViewCell class] forCellReuseIdentifier:@"commentCell"];
@@ -430,12 +430,6 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO];
 }
-
-
-
-
-
-
 
 
 - (void)didReceiveMemoryWarning {

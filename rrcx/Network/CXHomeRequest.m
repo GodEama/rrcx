@@ -272,6 +272,13 @@
     return[self GETrequestWithURL:url parameters:parameters success:success failure:failure];
     
 }
++(NSURLSessionTask *)getMyMessages:(id)parameters responseCache:(PPHttpRequestCache)responseCache success:(PPRequestSuccess)success failure:(PPRequestFailure)failure
+{
+    NSString * url = [NSString stringWithFormat:@"%@%@",SERVER_ADDRESS,CXMyMessagesURL];
+    return[self GETrequestWithURL:url parameters:parameters responseCaches:responseCache success:success failure:failure];
+    
+}
+
 
 
 

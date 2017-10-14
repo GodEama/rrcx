@@ -100,7 +100,7 @@ NSString *const CXMyFollowsListURL = @"/Api/Person/followed";
 NSString *const CXMyVisitorsListURL = @"/Api/Person/visitors";
 NSString *const CXMyCommentsListURL = @"/Api/CommentL/myCommentList";
 NSString *const CXDeleteMyCommentURL = @"/Api/CommentL/myCommentDelete";
-
+NSString *const CXMyMessagesURL = @"/Api/My/messages";
 
 
 

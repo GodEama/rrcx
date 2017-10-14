@@ -336,7 +336,7 @@
 -(UIButton *)downBtn{
     if (!_downBtn) {
         _downBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_downBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        [_downBtn setImage:[UIImage imageNamed:@"option"] forState:UIControlStateNormal];
     
     }
     return _downBtn;

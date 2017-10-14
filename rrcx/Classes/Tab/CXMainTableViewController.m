@@ -275,21 +275,18 @@ didSelectItemAtIndex:(NSUInteger)index
 }
 
 - (void)tabBarClickWriteButton:(MainTabBar *)tabBar{
-    _menu.backgroundType = HyPopMenuViewBackgroundTypeLightBlur;
-    [_menu openMenu];
-//    if (!USERKEY) {
-//        CXLoginViewController *writeVc = [[CXLoginViewController alloc] init];
-//        MainNavigationController *nav = [[MainNavigationController alloc] initWithRootViewController:writeVc];
-//        
-//        [self presentViewController:nav animated:YES completion:nil];
-//    }
-//    else
-//    {
-//        CXPostArticleViewController *writeVc = [[CXPostArticleViewController alloc] init];
-//      
-//        MainNavigationController *nav = [[MainNavigationController alloc] initWithRootViewController:writeVc];
-//        [self presentViewController:nav animated:YES completion:nil];
-//    }
+    if (!TOKEN) {
+        CXLoginViewController *writeVc = [[CXLoginViewController alloc] init];
+        MainNavigationController *nav = [[MainNavigationController alloc] initWithRootViewController:writeVc];
+        
+        [self presentViewController:nav animated:YES completion:nil];
+    }
+    else
+    {
+        _menu.backgroundType = HyPopMenuViewBackgroundTypeLightBlur;
+        [_menu openMenu];
+
+    }
     
 }
 

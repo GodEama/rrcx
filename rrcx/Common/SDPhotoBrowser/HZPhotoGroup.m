@@ -83,15 +83,14 @@
 
 #pragma mark - photobrowser代理方法
 
-// 返回临时占位图片（即原来的小图）
-- (UIImage *)photoBrowser:(HZPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
-{
+
+-(UIImage *)CX_photoBrowser:(HZPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index{
     return [self.subviews[index] currentImage];
+
 }
 
-
 // 返回高质量图片的url
-- (NSURL *)photoBrowser:(HZPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
+- (NSURL *)CX_photoBrowser:(HZPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
 {
     NSString *urlStr = [[self.photoItemArray[index] thumbnail_pic] stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"bmiddle"];
     return [NSURL URLWithString:urlStr];

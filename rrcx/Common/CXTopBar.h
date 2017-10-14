@@ -10,5 +10,6 @@
 
 @interface CXTopBar : UIView
 @property (nonatomic, copy) void(^searchClickBlock)(void);
+@property (nonatomic, copy) void(^messageClickBlock)(void);
 
 @end
